@@ -1,5 +1,9 @@
 package com.example.review.Fragment;
 
 public class Test {
-    int a;
+    int b;
+
+    void doSomething(){
+        int a = b;
+    }
 }
