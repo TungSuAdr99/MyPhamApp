@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="245dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:text="Tên APP"
+                android:textSize="30dp" />
+
+            <ImageView
+                android:id="@+id/img_avt"
+                android:layout_width="102dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/avata" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_timkiem"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:textSize="10dp"
+                android:text="Tìm Kiếm" />
+
+            <EditText
+                android:id="@+id/edt_timkiem"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Nhập sản phẩm"
+                android:inputType="textPersonName" />
+
+            <Spinner
+                android:id="@+id/spn_danhsachvung"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_sanpham"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/test_bt"
+                android:text="Sản Phẩm" />
+
+            <Button
+                android:id="@+id/bt_noitieng"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/test_bt"
+                android:textSize="10dp"
+                android:text="Nổi Tiếng" />
+
+            <Button
+                android:id="@+id/bt_uudai"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/test_bt"
+                android:textSize="10dp"
+                android:text="Ưu Đãi" />
+
+            <Button
+                android:id="@+id/bt_điaiem"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/test_bt"
+                android:textSize="10dp"
+                android:text="Địa Điểm" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <ViewFlipper
+                android:id="@+id/view_flipper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoStart="true"
+                android:inAnimation="@android:anim/slide_in_left"
+                android:outAnimation="@android:anim/slide_out_right">
+
+                <ImageView
+                    android:id="@+id/img_anhQC1"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/anhqc" />
+
+                <ImageView
+                    android:id="@+id/img_anhQC2"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/anhqc" />
+            </ViewFlipper>
+
+        </RelativeLayout>
+
+        <GridView
+            android:id="@+id/gv_ds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:numColumns="2" />
+    </LinearLayout>
+</RelativeLayout>

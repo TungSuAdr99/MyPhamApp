@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    //hình sau khi nhấn
+    <item android:state_pressed="true" >
+        <shape>
+            <corners android:radius="40dp"/>
+            <solid
+                android:color="#DF8178" />
+        </shape>
+    </item>
+
+    //hình trc khi nhấn
+    <item>
+        <shape>
+            <corners android:radius="40dp"/>
+            <gradient
+                android:angle="45"
+                android:endColor="#6D6E70"
+                android:centerColor="#7ED17E"
+                android:startColor="#0093a8"/>
+        </shape>
+    </item>
+</selector>
