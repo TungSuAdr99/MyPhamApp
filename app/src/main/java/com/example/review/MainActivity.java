@@ -31,11 +31,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private Button bt_sanpham;
-//    private Spinner spn_danhsachvung;
-//    private GridView gv_ds;
-//    ArrayList<Contact>  arrayList;
-//    CustomAdapter customAdapter;
     private BottomNavigationView bottomNav;
 
     @Override

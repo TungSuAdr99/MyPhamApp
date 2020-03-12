@@ -61,6 +61,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <Button
@@ -111,6 +112,8 @@
                 android:id="@+id/view_flipper"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="5dp"
+                android:background="@color/Brown"
                 android:autoStart="true"
                 android:inAnimation="@android:anim/slide_in_left"
                 android:outAnimation="@android:anim/slide_out_right">
@@ -129,7 +132,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/anhqc" />
+                    android:src="@drawable/may" />
             </ViewFlipper>
 
         </RelativeLayout>
