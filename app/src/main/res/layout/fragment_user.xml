@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#f8f8ff">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_profile"
+            android:layout_gravity="center"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#fff"/>
+
+        <TextView
+            android:id="@+id/txt_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="User"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_user"
+        android:layout_above="@+id/btn_dang_xuat"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:id="@+id/rll_dia_chi"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#f8f8ff">
+
+            <ImageView
+                android:id="@+id/img_dia_chi"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_location"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ"
+                android:layout_toRightOf="@+id/img_dia_chi"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <View
+            android:id="@+id/view_dia_chi"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/rll_dia_chi"/>
+
+        <RelativeLayout
+            android:id="@+id/rll_thanh_toan"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#f8f8ff"
+            android:layout_below="@+id/view_dia_chi">
+
+            <ImageView
+                android:id="@+id/img_thanh_toan"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_location"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh Toán"
+                android:layout_toRightOf="@+id/img_thanh_toan"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <View
+            android:id="@+id/view_thanh_toan"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/rll_thanh_toan"/>
+
+        <RelativeLayout
+            android:id="@+id/rll_cai_dat"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#f8f8ff"
+            android:layout_below="@+id/view_thanh_toan">
+
+            <ImageView
+                android:id="@+id/img_cai_dat"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_location"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cài đặt"
+                android:layout_toRightOf="@+id/img_cai_dat"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/rll_cai_dat"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_dang_xuat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng Xuất"
+        android:textColor="@android:color/holo_red_dark"
+        android:background="#f8f8ff"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

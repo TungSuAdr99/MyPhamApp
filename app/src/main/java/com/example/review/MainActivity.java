@@ -5,29 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.review.Fragment.HomeFragment;
 import com.example.review.Fragment.ThongbaoFragment;
-import com.example.review.Fragment.ToiFragment;
+import com.example.review.Fragment.UserFragment;
 import com.example.review.Fragment.YeuthihFragment;
-import com.example.review.adapter.CustomAdapter;
-import com.example.review.model.Contact;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFrament = new ThongbaoFragment();
                     break;
                 case R.id.nav_toi:
-                    selectedFrament = new ToiFragment();
+                    selectedFrament = new UserFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.frament, selectedFrament).commit();// màn hình frament đk thay thế bằng màn hình tring gian

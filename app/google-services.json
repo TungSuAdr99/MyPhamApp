@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "693405198227",
+    "firebase_url": "https://myphamapp.firebaseio.com",
+    "project_id": "myphamapp",
+    "storage_bucket": "myphamapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693405198227:android:7532b4135b482a3862ea66",
+        "android_client_info": {
+          "package_name": "com.example.review"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693405198227-o9p3ii1d4k62iov0cir4hh8idf6rm2ij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.review",
+            "certificate_hash": "0782c1e99b577b3b24f2f0141126411a7f4964be"
+          }
+        },
+        {
+          "client_id": "693405198227-s6ffv7fus9e1kqpdfh5totiojp2tnc37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC30mpl9PZHc8Vmmib0_3-7lMpenjkn-eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693405198227-s6ffv7fus9e1kqpdfh5totiojp2tnc37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
