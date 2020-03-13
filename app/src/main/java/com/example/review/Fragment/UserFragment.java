@@ -1,7 +1,9 @@
 package com.example.review.Fragment;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.review.MainActivity;
 import com.example.review.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -32,6 +35,8 @@ public class UserFragment extends Fragment {
     private TextView txtNameUser;
     private FirebaseUser user;
 
+    private boolean check;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,11 +50,10 @@ public class UserFragment extends Fragment {
         btnDangXuat = view.findViewById(R.id.btn_dang_xuat);
         txtNameUser = view.findViewById(R.id.txt_user);
 
-        providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.PhoneBuilder().build()
-        );
+        eventsClick();
+    }
 
+    private void eventsClick() {
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,23 +72,37 @@ public class UserFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build()
+        );
 
-         user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null && !check){
+            check = true;
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
+        }
         if(user == null){
             showSignInOptions();
+            Log.e("KMF","kkk");
+            check = false;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode == AUTH_REQUEST_CODE){
             if(user.getEmail() != null)
                 txtNameUser.setText(user.getDisplayName());
 
             if(user.getPhoneNumber() != null){
                 txtNameUser.setText(user.getPhoneNumber());
+            }
+
+            if(user.getEmail() == "TungSuAdr99@gmail.com"){
+
             }
         }
     }
@@ -94,6 +112,7 @@ public class UserFragment extends Fragment {
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .setTheme(R.style.MyThem)
+                        .setAlwaysShowSignInMethodScreen(true)
                         .build(), AUTH_REQUEST_CODE
         );
     }

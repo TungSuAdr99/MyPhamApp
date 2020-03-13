@@ -1,12 +1,12 @@
 package com.example.review.model;
 
-public class Contact {
+public class SanPham {
     private int image;
     private String mName;
     private String mGia;
     private String mKhuyenmai;
 
-    public Contact(int image, String mName, String mGia, String mKhuyenmai) {
+    public SanPham(int image, String mName, String mGia, String mKhuyenmai) {
         this.image = image;
         this.mName = mName;
         this.mGia = mGia;

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -19,11 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.review.MainActivity;
-import com.example.review.Manhinhtimkiem;
+import com.example.review.activity.Manhinhtimkiem;
 import com.example.review.R;
-import com.example.review.adapter.CustomAdapter;
-import com.example.review.model.Contact;
+import com.example.review.adapter.SanPhamAdapter;
+import com.example.review.model.SanPham;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +30,8 @@ public class HomeFragment extends Fragment {
     private Button bt_sanpham;
     private Spinner spn_danhsachvung;
     private GridView gv_ds;
-    ArrayList<Contact> arrayList;
-    CustomAdapter customAdapter;
+    ArrayList<SanPham> arrayList;
+    SanPhamAdapter customAdapter;
     private ViewFlipper view_flipper;
     private TextView tv_chuyentimkiem;
     ImageView img1, img2;
@@ -105,11 +103,11 @@ public class HomeFragment extends Fragment {
         gv_ds = view.findViewById(R.id.gv_ds);
         arrayList = new ArrayList<>();
 
-        arrayList.add(new Contact(R.drawable.son, "Son Em Cosmetics", "150.000đ", "50%"));
-        arrayList.add(new Contact(R.drawable.son, "Son Dưỡng", "300.000đ", "30%"));
-        arrayList.add(new Contact(R.drawable.son, "Son Emax", "100.000đ", "0%"));
+        arrayList.add(new SanPham(R.drawable.son, "Son Em Cosmetics", "150.000đ", "50%"));
+        arrayList.add(new SanPham(R.drawable.son, "Son Dưỡng", "300.000đ", "30%"));
+        arrayList.add(new SanPham(R.drawable.son, "Son Emax", "100.000đ", "0%"));
 
-        customAdapter = new CustomAdapter(getContext(), R.layout.row, arrayList);
+        customAdapter = new SanPhamAdapter(getContext(), R.layout.row, arrayList);
         gv_ds.setAdapter(customAdapter);
     }
 

@@ -12,21 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.review.R;
-import com.example.review.model.Contact;
+import com.example.review.model.SanPham;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomAdapter extends ArrayAdapter<Contact> {
+public class SanPhamAdapter extends ArrayAdapter<SanPham> {
     private Context context;
     private int resource;
-    private ArrayList<Contact> arrContact;
+    private ArrayList<SanPham> arrContact;
 
-    public CustomAdapter(@NonNull Context context, int resource, @NonNull List<Contact> objects) {
+    public SanPhamAdapter(@NonNull Context context, int resource, @NonNull List<SanPham> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
-        this.arrContact = (ArrayList<Contact>) objects;
+        this.arrContact = (ArrayList<SanPham>) objects;
     }
 
     @NonNull
@@ -54,7 +54,7 @@ public class CustomAdapter extends ArrayAdapter<Contact> {
 
 
 
-        Contact contact = arrContact.get(position);//MainActivity run: arrayList(VD: DS có 5 số đt) -> CustomAdapter -> class CustomAdapter -> objects -> arrContact "lấy số đt thứ..."
+        SanPham contact = arrContact.get(position);//MainActivity run: arrayList(VD: DS có 5 số đt) -> CustomAdapter -> class CustomAdapter -> objects -> arrContact "lấy số đt thứ..."
 
         viewHoldel.imgAnh.setBackgroundResource(contact.getImage() );//lấy ảnh qua kiểu int
 
