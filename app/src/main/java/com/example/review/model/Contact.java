@@ -4,14 +4,12 @@ public class Contact {
     private int image;
     private String mName;
     private String mGia;
-    private String mSodiadiem;
     private String mKhuyenmai;
 
-    public Contact(int image, String mName, String mGia, String mSodiadiem, String mKhuyenmai) {
+    public Contact(int image, String mName, String mGia, String mKhuyenmai) {
         this.image = image;
         this.mName = mName;
         this.mGia = mGia;
-        this.mSodiadiem = mSodiadiem;
         this.mKhuyenmai = mKhuyenmai;
     }
 
@@ -37,14 +35,6 @@ public class Contact {
 
     public void setmGia(String mGia) {
         this.mGia = mGia;
-    }
-
-    public String getmSodiadiem() {
-        return mSodiadiem;
-    }
-
-    public void setmSodiadiem(String mSodiadiem) {
-        this.mSodiadiem = mSodiadiem;
     }
 
     public String getmKhuyenmai() {

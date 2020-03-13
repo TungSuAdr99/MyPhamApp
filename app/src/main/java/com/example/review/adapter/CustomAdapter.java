@@ -42,7 +42,6 @@ public class CustomAdapter extends ArrayAdapter<Contact> {
 
             viewHoldel.imgAnh = convertView.findViewById(R.id.img_anhSP);
             viewHoldel.tvName = convertView.findViewById(R.id.tv_tenSP);
-            viewHoldel.tvSodd = convertView.findViewById(R.id.tv_diachiSP);
             viewHoldel.tvGia = convertView.findViewById(R.id.tv_gia);
             viewHoldel.tvKhuyenmai = convertView.findViewById(R.id.tv_khuyenmai);
 
@@ -60,7 +59,6 @@ public class CustomAdapter extends ArrayAdapter<Contact> {
         viewHoldel.imgAnh.setBackgroundResource(contact.getImage() );//lấy ảnh qua kiểu int
 
         viewHoldel.tvName.setText(contact.getmName());
-        viewHoldel.tvSodd.setText(contact.getmSodiadiem());
         viewHoldel.tvGia.setText(contact.getmGia());
         viewHoldel.tvKhuyenmai.setText(contact.getmKhuyenmai());
 
@@ -71,7 +69,6 @@ public class CustomAdapter extends ArrayAdapter<Contact> {
     {
         ImageView imgAnh;
         TextView tvName;
-        TextView tvSodd;
         TextView tvGia;
         TextView tvKhuyenmai;
     }

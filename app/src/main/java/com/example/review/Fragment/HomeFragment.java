@@ -1,14 +1,17 @@
 package com.example.review.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -17,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.review.MainActivity;
+import com.example.review.Manhinhtimkiem;
 import com.example.review.R;
 import com.example.review.adapter.CustomAdapter;
 import com.example.review.model.Contact;
@@ -31,7 +35,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Contact> arrayList;
     CustomAdapter customAdapter;
     private ViewFlipper view_flipper;
-
+    private TextView tv_chuyentimkiem;
     ImageView img1, img2;
 
     @Nullable
@@ -43,8 +47,30 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) { // dùng như main ở activivy
         super.onViewCreated(view, savedInstanceState);
-        view_flipper = view.findViewById(R.id.view_flipper);
 
+        listV(view);
+        listSP(view);
+        bt_sp(view);
+        chuyenQC(view);
+        chuyenTimkiem(view);
+    }
+
+    public void chuyenTimkiem(View view)
+    {
+        tv_chuyentimkiem = view.findViewById(R.id.tv_chuyentimkiem);
+
+        tv_chuyentimkiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Manhinhtimkiem.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void chuyenQC(View view)
+    {
+        view_flipper = view.findViewById(R.id.view_flipper);
         img1 = view.findViewById(R.id.img_anhQC1);
         img2 = view.findViewById(R.id.img_anhQC2);
 
@@ -61,10 +87,6 @@ public class HomeFragment extends Fragment {
 
         view_flipper.setFlipInterval(2000);
         view_flipper.startFlipping();
-
-        listV(view);
-        listSP(view);
-        bt_sp(view);
     }
 
     public void bt_sp(View view)
@@ -83,9 +105,9 @@ public class HomeFragment extends Fragment {
         gv_ds = view.findViewById(R.id.gv_ds);
         arrayList = new ArrayList<>();
 
-        arrayList.add(new Contact(R.drawable.son, "Son Em Cosmetics", "150.000đ", "66 địa điểm", "50%"));
-        arrayList.add(new Contact(R.drawable.son, "Son Dưỡng", "300.000đ", "1 địa điểm", "30%"));
-        arrayList.add(new Contact(R.drawable.son, "Son Emax", "100.000đ", "12 địa điểm", "0%"));
+        arrayList.add(new Contact(R.drawable.son, "Son Em Cosmetics", "150.000đ", "50%"));
+        arrayList.add(new Contact(R.drawable.son, "Son Dưỡng", "300.000đ", "30%"));
+        arrayList.add(new Contact(R.drawable.son, "Son Emax", "100.000đ", "0%"));
 
         customAdapter = new CustomAdapter(getContext(), R.layout.row, arrayList);
         gv_ds.setAdapter(customAdapter);
