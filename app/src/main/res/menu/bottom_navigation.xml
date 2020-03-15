@@ -4,20 +4,20 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"/>
+        android:title=""/>
 
     <item
-        android:id="@+id/nav_yeuthich"
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Yêu thích"/>
-
-    <item
-        android:id="@+id/nav_luutru"
+        android:id="@+id/nav_thongbao"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Thông báo"/>
+        android:title=""/>
+
+    <item
+        android:id="@+id/nav_ghichu"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title=""/>
 
     <item
         android:id="@+id/nav_toi"
         android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="Tôi"/>
+        android:title=""/>
 </menu>

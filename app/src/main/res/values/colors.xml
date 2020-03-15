@@ -16,4 +16,8 @@
     <color name="Silver">#C0C0C0</color>
     <color name="xám">#E6E4E4</color>
 
+    <color name="pumpkin">#D55448</color>
+    <color name="canteloupe">#FFA577</color>
+    <color name="cotton">#F9F9FF</color>
+    <color name="hotchocolate">#896E69</color>
 </resources>

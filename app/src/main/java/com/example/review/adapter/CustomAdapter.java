@@ -41,10 +41,6 @@ public class CustomAdapter extends ArrayAdapter<Contact> {
             viewHoldel = new ViewHoldel();
 
             viewHoldel.imgAnh = convertView.findViewById(R.id.img_anhSP);
-            viewHoldel.tvName = convertView.findViewById(R.id.tv_tenSP);
-            viewHoldel.tvGia = convertView.findViewById(R.id.tv_gia);
-            viewHoldel.tvKhuyenmai = convertView.findViewById(R.id.tv_khuyenmai);
-
             convertView.setTag(viewHoldel);//lưu lại những thằng đã khởi tạo trên vào viewHoldel
         }
         else
@@ -57,19 +53,11 @@ public class CustomAdapter extends ArrayAdapter<Contact> {
         Contact contact = arrContact.get(position);//MainActivity run: arrayList(VD: DS có 5 số đt) -> CustomAdapter -> class CustomAdapter -> objects -> arrContact "lấy số đt thứ..."
 
         viewHoldel.imgAnh.setBackgroundResource(contact.getImage() );//lấy ảnh qua kiểu int
-
-        viewHoldel.tvName.setText(contact.getmName());
-        viewHoldel.tvGia.setText(contact.getmGia());
-        viewHoldel.tvKhuyenmai.setText(contact.getmKhuyenmai());
-
         return convertView;
     }
 
     public class ViewHoldel//tạo đầu tiên
     {
         ImageView imgAnh;
-        TextView tvName;
-        TextView tvGia;
-        TextView tvKhuyenmai;
     }
 }

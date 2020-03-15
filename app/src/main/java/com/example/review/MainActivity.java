@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.example.review.Fragment.HomeFragment;
 import com.example.review.Fragment.ThongbaoFragment;
 import com.example.review.Fragment.UserFragment;
-import com.example.review.Fragment.YeuthihFragment;
+import com.example.review.Fragment.GhichuFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     selectedFrament = new HomeFragment();// màn hình của home đk gán cho 1 màn hình trung gian
                             break;
-                case R.id.nav_yeuthich:
-                    selectedFrament = new YeuthihFragment();
+                case R.id.nav_ghichu:
+                    selectedFrament = new GhichuFragment();
                             break;
-                case R.id.nav_luutru:
+                case R.id.nav_thongbao:
                     selectedFrament = new ThongbaoFragment();
                     break;
                 case R.id.nav_toi:
