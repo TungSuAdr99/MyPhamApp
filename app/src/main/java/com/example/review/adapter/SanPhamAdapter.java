@@ -52,7 +52,7 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
 
         SanPham contact = arrContact.get(position);//MainActivity run: arrayList(VD: DS có 5 số đt) -> CustomAdapter -> class CustomAdapter -> objects -> arrContact "lấy số đt thứ..."
 
-        viewHoldel.imgAnh.setBackgroundResource(contact.getImage() );//lấy ảnh qua kiểu int
+        viewHoldel.imgAnh.setImageResource(contact.getImage() );//lấy ảnh qua kiểu int
         return convertView;
     }
 

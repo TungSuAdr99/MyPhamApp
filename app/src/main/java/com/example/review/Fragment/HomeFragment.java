@@ -101,21 +101,16 @@ public class HomeFragment extends Fragment {
         gv_ds = view.findViewById(R.id.gv_ds);
         arrayList = new ArrayList<>();
 
-<<<<<<< HEAD
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-        arrayList.add(new Contact(R.drawable.son));
-=======
-        arrayList.add(new SanPham(R.drawable.son, "Son Em Cosmetics", "150.000đ", "50%"));
-        arrayList.add(new SanPham(R.drawable.son, "Son Dưỡng", "300.000đ", "30%"));
-        arrayList.add(new SanPham(R.drawable.son, "Son Emax", "100.000đ", "0%"));
->>>>>>> faaee848500012b92ad2766506d0b2d2826a49c7
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+        arrayList.add(new SanPham(R.drawable.son));
+
 
         customAdapter = new SanPhamAdapter(getContext(), R.layout.row, arrayList);
         gv_ds.setAdapter(customAdapter);
