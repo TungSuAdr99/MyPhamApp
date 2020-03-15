@@ -51,19 +51,6 @@ public class HomeFragment extends Fragment {
 //        chuyenTimkiem(view);
     }
 
-//    public void chuyenTimkiem(View view)
-//    {
-//        tv_chuyentimkiem = view.findViewById(R.id.tv_chuyentimkiem);
-//
-//        tv_chuyentimkiem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), Manhinhtimkiem.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
     public void chuyenQC(View view)
     {
         view_flipper = view.findViewById(R.id.view_flipper);
