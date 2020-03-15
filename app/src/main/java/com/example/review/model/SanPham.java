@@ -2,12 +2,8 @@ package com.example.review.model;
 
 public class SanPham {
     private int image;
-    private  String mName;
-    private String mGia;
-    private String mKhuyenmai;
 
-    public SanPham(int image) {}
-    public SanPham(int image, String mName, String mGia, String mKhuyenmai) {
+    public SanPham(int image) {
         this.image = image;
     }
 
