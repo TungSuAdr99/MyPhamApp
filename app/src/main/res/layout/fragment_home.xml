@@ -4,12 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <RelativeLayout
+            android:id="@+id/rl_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/pumpkin">
@@ -23,103 +19,129 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/layout_tab"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_below="@+id/rl_search">
 
-            <Button
-                android:id="@+id/bt_sanpham"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="10dp"
-                android:textStyle="bold"
-                android:textColor="@color/Red"
-                android:text="Sản phẩm" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                app:tabTextColor="@android:color/black"
+                app:tabSelectedTextColor="@color/pumpkin"
+                style="@style/CustomTabLayout">
 
-            <Button
-                android:id="@+id/bt_diachi"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="10dp"
-                android:textColor="@color/Red"
-                android:text="Địa chỉ" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tab0"
+                    android:text="Tab0"/>
 
-            <Button
-                android:id="@+id/bt_uudai"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@color/Red"
-                android:textSize="10dp"
-                android:text="Ưu Đãi" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tab1"
+                    android:text="Tab1"/>
 
-            <Button
-                android:id="@+id/bt_điaiem"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@color/Red"
-                android:textSize="9dp"
-                android:text="Tìm kiếm nhiều" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tab2"
+                    android:text="Tab2"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tab3"
+                    android:text="Tab3"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tab4"
+                    android:text="Tab4"/>
+            </com.google.android.material.tabs.TabLayout>
+
         </LinearLayout>
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/frame_tab"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-            <ViewFlipper
-                android:id="@+id/view_flipper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/Brown"
-                android:autoStart="true"
-                android:inAnimation="@android:anim/slide_in_left"
-                android:outAnimation="@android:anim/slide_out_right">
-
-                <ImageView
-                    android:id="@+id/img_anhQC1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/anhqc" />
-
-                <ImageView
-                    android:id="@+id/img_anhQC2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/anhqc" />
-            </ViewFlipper>
-
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_tab"
+            android:visibility="gone"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/item_den" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:textSize="20dp"
-                android:textColor="@color/colorPrimary"
-                android:text="Được quan tâm" />
-        </LinearLayout>
-
-        <GridView
-            android:id="@+id/gv_ds"
+            android:id="@+id/linear_layout"
+            android:layout_below="@+id/frame_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:numColumns="3" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_flipper"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ViewFlipper
+                    android:id="@+id/view_flipper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/Brown"
+                    android:autoStart="true"
+                    android:inAnimation="@android:anim/slide_in_left"
+                    android:outAnimation="@android:anim/slide_out_right">
+
+                    <ImageView
+                        android:id="@+id/img_anhQC1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/anhqc" />
+
+                    <ImageView
+                        android:id="@+id/img_anhQC2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/anhqc" />
+                </ViewFlipper>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_text"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/rl_flipper">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/item_den" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Được quan tâm" />
+            </LinearLayout>
+
+            <GridView
+                android:layout_below="@id/layout_text"
+                android:id="@+id/gv_ds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:numColumns="3" />
+
+        </LinearLayout>
+
 </RelativeLayout>
