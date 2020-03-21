@@ -91,7 +91,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/Brown"
-                    android:autoStart="true"
                     android:inAnimation="@android:anim/slide_in_left"
                     android:outAnimation="@android:anim/slide_out_right">
 
@@ -105,7 +104,7 @@
                         android:id="@+id/img_anhQC2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/anhqc" />
+                        android:src="@drawable/son" />
                 </ViewFlipper>
 
             </RelativeLayout>

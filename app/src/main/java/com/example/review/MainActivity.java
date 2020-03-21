@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
             {
                 case R.id.nav_home:
                     selectedFrament = new HomeFragment();// màn hình của home đk gán cho 1 màn hình trung gian
-                            break;
+                    break;
                 case R.id.nav_ghichu:
                     selectedFrament = new GhichuFragment();
-                            break;
+                    break;
                 case R.id.nav_thongbao:
                     selectedFrament = new ThongbaoFragment();
                     break;
