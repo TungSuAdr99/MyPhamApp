@@ -1,41 +1,30 @@
 package com.example.review.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.review.Tab.TabDc;
 import com.example.review.Tab.TabHome;
 import com.example.review.Tab.TabSp;
 import com.example.review.Tab.TabTkn;
 import com.example.review.Tab.TabUd;
-import com.example.review.activity.Manhinhtimkiem;
 import com.example.review.R;
-import com.example.review.adapter.SanPhamAdapter;
+import com.example.review.model.adapter.SanPhamAdapter;
 import com.example.review.model.SanPham;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
     private GridView gv_ds;
