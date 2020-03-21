@@ -7,7 +7,7 @@
         <RelativeLayout
             android:id="@+id/rl_search"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:background="@color/pumpkin">
 
             <ImageView
@@ -29,8 +29,8 @@
                 android:id="@+id/tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                app:tabTextColor="@android:color/black"
+                android:background="@color/White"
+                app:tabTextColor="@color/pumpkin"
                 app:tabSelectedTextColor="@color/pumpkin"
                 style="@style/CustomTabLayout">
 
@@ -38,31 +38,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/Tab0"
-                    android:text="Tab0"/>
+                    android:text="TabRỗng"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/Tab1"
-                    android:text="Tab1"/>
+                    android:text="Sản phẩm"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/Tab2"
-                    android:text="Tab2"/>
+                    android:text="Địa chỉ"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/Tab3"
-                    android:text="Tab3"/>
+                    android:text="Ưu đãi"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/Tab4"
-                    android:text="Tab4"/>
+                    android:text="Tìm kiếm nhiều"/>
             </com.google.android.material.tabs.TabLayout>
 
         </LinearLayout>

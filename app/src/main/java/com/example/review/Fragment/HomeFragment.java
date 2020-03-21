@@ -88,7 +88,6 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 1)
                 {
-                    Log.e("KMF","kkk");
                     Fragment homeFrament = new TabSp();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
@@ -97,7 +96,6 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 2)
                 {
-                    Log.e("KMF","kkkaaaa");
                     Fragment homeFrament = new TabDc();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
@@ -106,7 +104,6 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 3)
                 {
-                    Log.e("KMF","kkkaaaa");
                     Fragment homeFrament = new TabUd();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
@@ -115,7 +112,6 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 4)
                 {
-                    Log.e("KMF","kkkaaaa");
                     Fragment homeFrament = new TabTkn();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
