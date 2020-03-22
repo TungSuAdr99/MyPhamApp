@@ -1,5 +1,6 @@
 package com.example.review.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.review.Tab.TabDc;
-import com.example.review.Tab.TabHome;
-import com.example.review.Tab.TabSp;
-import com.example.review.Tab.TabTkn;
-import com.example.review.Tab.TabUd;
+import com.example.review.Tab.TabAddressFragment;
+import com.example.review.Tab.TabHomeFragment;
+import com.example.review.Tab.TabProductFragment;
+import com.example.review.Tab.TabSeachsFragment;
+import com.example.review.Tab.TabEndowFragment;
 import com.example.review.R;
+import com.example.review.activity.SearchActivity;
 import com.example.review.model.adapter.SanPhamAdapter;
 import com.example.review.model.SanPham;
 import com.google.android.material.tabs.TabLayout;
@@ -31,7 +33,7 @@ public class HomeFragment extends Fragment {
     ArrayList<SanPham> arrayList;
     SanPhamAdapter customAdapter;
     private ViewFlipper view_flipper;
-//    private TextView tv_chuyentimkiem;
+    private ImageView img_Timkiem;
     ImageView img1, img2;
 
     private TabLayout tabLayout;
@@ -51,6 +53,19 @@ public class HomeFragment extends Fragment {
         listSP(view);
         chuyenQC(view);
         Tablayout(view);
+        chuyenTk(view);
+    }
+
+    public void chuyenTk(View view)
+    {
+        img_Timkiem = view.findViewById(R.id.img_Timkiem);
+        img_Timkiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public  void Tablayout(View view)
@@ -69,7 +84,7 @@ public class HomeFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 0)
                 {
-                    Fragment homeFrament = new TabHome();
+                    Fragment homeFrament = new TabHomeFragment();
                     getFragmentManager().beginTransaction().replace(R.id.frame_tab, homeFrament).commit();
 
                     frameLayout.setVisibility(View.VISIBLE);
@@ -77,7 +92,7 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 1)
                 {
-                    Fragment homeFrament = new TabSp();
+                    Fragment homeFrament = new TabProductFragment();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
                     frameLayout.setVisibility(View.VISIBLE);
@@ -85,7 +100,7 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 2)
                 {
-                    Fragment homeFrament = new TabDc();
+                    Fragment homeFrament = new TabAddressFragment();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
                     frameLayout.setVisibility(View.VISIBLE);
@@ -93,7 +108,7 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 3)
                 {
-                    Fragment homeFrament = new TabUd();
+                    Fragment homeFrament = new TabEndowFragment();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
                     frameLayout.setVisibility(View.VISIBLE);
@@ -101,7 +116,7 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 4)
                 {
-                    Fragment homeFrament = new TabTkn();
+                    Fragment homeFrament = new TabSeachsFragment();
                     getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
 
                     frameLayout.setVisibility(View.VISIBLE);

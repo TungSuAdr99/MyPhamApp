@@ -13,9 +13,9 @@ import com.example.review.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabUd extends Fragment {
+public class TabSeachsFragment extends Fragment {
 
-    public TabUd() {
+    public TabSeachsFragment() {
         // Required empty public constructor
     }
 
@@ -24,6 +24,6 @@ public class TabUd extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_ud, container, false);
+        return inflater.inflate(R.layout.fragment_tab_tkn, container, false);
     }
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SearchActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/pumpkin"
+        android:layout_height="40dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="3dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/White"
+            android:hint="Nhập tên sản phẩm"/>
+
+        <ImageView
+            android:id="@+id/img_Timkiem"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@color/pumpkin"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/item_timkiem" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -7,11 +7,11 @@
         <RelativeLayout
             android:id="@+id/rl_search"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:background="@color/pumpkin">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/img_Timkiem"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
