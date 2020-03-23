@@ -82,46 +82,27 @@ public class HomeFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 0)
+                Fragment fragment = null;
+               if(tab.getPosition() == 1)
                 {
-                    Fragment homeFrament = new TabHomeFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frame_tab, homeFrament).commit();
-
-                    frameLayout.setVisibility(View.VISIBLE);
-                    linearLayout.setVisibility(View.GONE);
-                }
-                else if(tab.getPosition() == 1)
-                {
-                    Fragment homeFrament = new TabProductFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
-
-                    frameLayout.setVisibility(View.VISIBLE);
-                    linearLayout.setVisibility(View.GONE);
+                    fragment = new TabProductFragment();
                 }
                 else if(tab.getPosition() == 2)
                 {
-                    Fragment homeFrament = new TabAddressFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
-
-                    frameLayout.setVisibility(View.VISIBLE);
-                    linearLayout.setVisibility(View.GONE);
+                    fragment = new TabAddressFragment();
                 }
                 else if(tab.getPosition() == 3)
                 {
-                    Fragment homeFrament = new TabEndowFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
-
-                    frameLayout.setVisibility(View.VISIBLE);
-                    linearLayout.setVisibility(View.GONE);
+                    fragment = new TabEndowFragment();
                 }
                 else if(tab.getPosition() == 4)
                 {
-                    Fragment homeFrament = new TabSeachsFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frament, homeFrament).commit();
-
-                    frameLayout.setVisibility(View.VISIBLE);
-                    linearLayout.setVisibility(View.GONE);
+                    fragment = new TabSeachsFragment();
                 }
+
+                frameLayout.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.GONE);
+                getFragmentManager().beginTransaction().replace(R.id.frament, fragment).commit();
             }
 
             @Override
