@@ -1,7 +1,11 @@
 package com.example.review.Fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,25 +19,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.review.Tab.TabAddressFragment;
+<<<<<<< HEAD
 import com.example.review.ProductActivity.TabProductFragment;
+=======
+import com.example.review.Tab.TabProductFragment;
+>>>>>>> 6f924fe052f2355f4eea96294396546bce6069d6
 import com.example.review.Tab.TabSeachsFragment;
 import com.example.review.Tab.TabEndowFragment;
 import com.example.review.R;
 import com.example.review.activity.SearchActivity;
-import com.example.review.model.adapter.SanPhamAdapter;
-import com.example.review.model.SanPham;
+import com.example.review.model.adapter.ProductAdapter;
+import com.example.review.model.Product;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    private GridView gv_ds;
-    ArrayList<SanPham> arrayList;
-    SanPhamAdapter customAdapter;
-    private ViewFlipper view_flipper;
-    private ImageView img_Timkiem;
-    ImageView img1, img2;
+    private GridView gvCosmetics;
+    ArrayList<Product> arrayList;
+    ProductAdapter customAdapter;
+    private ViewFlipper viewFlipper;
+    private ImageView imgSearch;
+    ImageView imgAdvertise1, imgAdvertise2;
 
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
@@ -57,8 +71,8 @@ public class HomeFragment extends Fragment {
 
     public void chuyenTk(View view)
     {
-        img_Timkiem = view.findViewById(R.id.img_Timkiem);
-        img_Timkiem.setOnClickListener(new View.OnClickListener() {
+        imgSearch = view.findViewById(R.id.img_Timkiem);
+        imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchActivity.class);
@@ -117,42 +131,91 @@ public class HomeFragment extends Fragment {
 
     public void chuyenQC(View view)
     {
-        view_flipper = view.findViewById(R.id.view_flipper);
-        img1 = view.findViewById(R.id.img_anhQC1);
-        img2 = view.findViewById(R.id.img_anhQC2);
+        viewFlipper = view.findViewById(R.id.view_flipper);
+        imgAdvertise1 = view.findViewById(R.id.img_anhQC1);
+        imgAdvertise2 = view.findViewById(R.id.img_anhQC2);
 
-        if(img1.getParent() != null) {
-            ((ViewGroup)img1.getParent()).removeView(img1);
+        setAdvertise();
+
+        if(imgAdvertise1.getParent() != null) {
+            ((ViewGroup)imgAdvertise1.getParent()).removeView(imgAdvertise1);
         }
 
-        if(img2.getParent() != null) {
-            ((ViewGroup)img2.getParent()).removeView(img2);
+        if(imgAdvertise2.getParent() != null) {
+            ((ViewGroup)imgAdvertise2.getParent()).removeView(imgAdvertise2);
         }
 
-        view_flipper.addView(img1);
-        view_flipper.addView(img2);
+        viewFlipper.addView(imgAdvertise1);
+        viewFlipper.addView(imgAdvertise2);
 
-        view_flipper.setFlipInterval(2000);
-        view_flipper.startFlipping();
+
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.startFlipping();
+    }
+
+    //set QC
+    private void setAdvertise(){
+        final ArrayList<String> arrayAdvertises = new ArrayList<>();
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance()
+                .getReference().child("advertise");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    arrayAdvertises.add(snapshot.getValue().toString());
+                }
+
+                Glide.with(getContext()).load(arrayAdvertises.get(0)).into(imgAdvertise1);
+                Glide.with(getContext()).load(arrayAdvertises.get(1)).into(imgAdvertise2);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public  void listSP(View view)
     {
-        gv_ds = view.findViewById(R.id.gv_ds);
+        gvCosmetics = view.findViewById(R.id.gv_ds);
         arrayList = new ArrayList<>();
 
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
-        arrayList.add(new SanPham(R.drawable.son));
+        setCosmetics();
 
+    }
 
-        customAdapter = new SanPhamAdapter(getContext(), R.layout.row, arrayList);
-        gv_ds.setAdapter(customAdapter);
+    //set MyPham
+    private void setCosmetics(){
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance()
+                .getReference().child("MyPham");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                arrayList.clear();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Product product = snapshot.getValue(Product.class);
+                    product.setKey(snapshot.getKey());
+                    arrayList.add(product);
+                }
+
+                setAdapter();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setAdapter() {
+        customAdapter = new ProductAdapter(getContext(), R.layout.row, arrayList);
+        gvCosmetics.setAdapter(customAdapter);
+        customAdapter.notifyDataSetChanged();
     }
 }

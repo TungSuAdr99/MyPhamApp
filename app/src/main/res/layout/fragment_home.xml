@@ -97,14 +97,12 @@
                     <ImageView
                         android:id="@+id/img_anhQC1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/anhqc" />
+                        android:layout_height="match_parent" />
 
                     <ImageView
                         android:id="@+id/img_anhQC2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/son" />
+                        android:layout_height="match_parent" />
                 </ViewFlipper>
 
             </RelativeLayout>

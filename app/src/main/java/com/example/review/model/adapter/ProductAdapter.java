@@ -10,22 +10,23 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.review.R;
-import com.example.review.model.SanPham;
+import com.example.review.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SanPhamAdapter extends ArrayAdapter<SanPham> {
+public class ProductAdapter extends ArrayAdapter<Product> {
     private Context context;
     private int resource;
-    private ArrayList<SanPham> arrContact;
+    private ArrayList<Product> arrContact;
 
-    public SanPhamAdapter(@NonNull Context context, int resource, @NonNull List<SanPham> objects) {
+    public ProductAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
-        this.arrContact = (ArrayList<SanPham>) objects;
+        this.arrContact = (ArrayList<Product>) objects;
     }
 
     @NonNull
@@ -46,12 +47,10 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
         {
             viewHoldel= (ViewHoldel) convertView.getTag();//lấy cái đã khởi tạo ra dùng
         }
+        Product contact = arrContact.get(position);//MainActivity run: arrayList(VD: DS có 5 số đt) -> CustomAdapter -> class CustomAdapter -> objects -> arrContact "lấy số đt thứ..."
 
+        Glide.with(context).load(contact.getImage()).into(viewHoldel.imgAnh);
 
-
-        SanPham contact = arrContact.get(position);//MainActivity run: arrayList(VD: DS có 5 số đt) -> CustomAdapter -> class CustomAdapter -> objects -> arrContact "lấy số đt thứ..."
-
-        viewHoldel.imgAnh.setImageResource(contact.getImage() );//lấy ảnh qua kiểu int
         return convertView;
     }
 
