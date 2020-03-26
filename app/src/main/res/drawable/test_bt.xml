@@ -4,7 +4,7 @@
     //hình sau khi nhấn
     <item android:state_pressed="true" >
         <shape>
-            <corners android:radius="5dp"/>
+            <corners android:radius="40dp"/>
             <solid
                 android:color="#DF8178" />
         </shape>
@@ -13,12 +13,12 @@
     //hình trc khi nhấn
     <item>
         <shape>
-            <corners android:radius="5dp"/>
+            <corners android:radius="40dp"/>
             <gradient
                 android:angle="45"
-                android:startColor="#896E69"
-                android:endColor="#FFA577"
-                android:centerColor="#F9F9FF"/>
+                android:endColor="@color/canteloupe"
+                android:centerColor="@color/canteloupe"
+                android:startColor="@color/canteloupe"/>
         </shape>
     </item>
 </selector>

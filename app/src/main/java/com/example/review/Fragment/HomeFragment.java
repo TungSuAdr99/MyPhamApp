@@ -16,8 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.review.Tab.TabAddressFragment;
-import com.example.review.Tab.TabHomeFragment;
-import com.example.review.Tab.TabProductFragment;
+import com.example.review.ProductActivity.TabProductFragment;
 import com.example.review.Tab.TabSeachsFragment;
 import com.example.review.Tab.TabEndowFragment;
 import com.example.review.R;

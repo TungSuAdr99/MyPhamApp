@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Tab.TabProductFragment">
+    tools:context=".ProductActivity.TabProductFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sản phẩm" />
+        android:orientation="vertical">
 
+        <Spinner
+            android:id="@+id/Product_spn_DSSanpham"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/canteloupe"/>
+
+        <GridView
+            android:id="@+id/Product_gv_DSSanphamchon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"/>
+
+    </LinearLayout>
 </FrameLayout>
