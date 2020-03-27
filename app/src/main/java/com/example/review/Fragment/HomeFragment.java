@@ -1,11 +1,7 @@
 package com.example.review.Fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +17,13 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.review.Tab.TabAddressFragment;
-<<<<<<< HEAD
-import com.example.review.ProductActivity.TabProductFragment;
-=======
 import com.example.review.Tab.TabProductFragment;
->>>>>>> 6f924fe052f2355f4eea96294396546bce6069d6
+
 import com.example.review.Tab.TabSeachsFragment;
 import com.example.review.Tab.TabEndowFragment;
 import com.example.review.R;
 import com.example.review.activity.SearchActivity;
-import com.example.review.model.adapter.ProductAdapter;
+import com.example.review.adapter.ProductAdapter;
 import com.example.review.model.Product;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;

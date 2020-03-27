@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import com.example.review.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TabHomeFragment extends Fragment {
 
     public TabHomeFragment() {

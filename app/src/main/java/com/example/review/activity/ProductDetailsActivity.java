@@ -1,16 +1,19 @@
-package com.example.review.ProductDetailsActivity;
+package com.example.review.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.review.ProductDetailsActivity.ListView_Product_LienQuan.Contact_Product_LienQuan;
 import com.example.review.ProductDetailsActivity.ListView_Product_LienQuan.CustomAdapter_Product_LienQuan;
 import com.example.review.ProductDetailsActivity.RecyclerView_Cmt.ContactRecycler;
@@ -35,22 +38,49 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private ArrayList<ContactRecycler> contacts = new ArrayList<>();
     private ArrayList<String> mNames = new ArrayList<>();
 
+    //getIntent
+    private TextView txtName;
+    private ImageView imageView;
+    private String name;
+    private String price;
+    private String image;
+    private String ingredient1;
+    private String ingredient2;
+    private String detail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
+        txtName = findViewById(R.id.txt_name);
+        imageView = findViewById(R.id.imageView);
+
+        takeIntent();
         TreeView();
         XLTextViewThich();
         XLLayoutBinhLuan();
         XLRecycler();
         LVSpLienquan();
+
+        txtName.setText(name);
+        Glide.with(this).load(image).into(imageView);
+    }
+
+    private void takeIntent(){
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        price = intent.getStringExtra("price");
+        image = intent.getStringExtra("image");
+        ingredient1 = intent.getStringExtra("ingredient1");
+        ingredient2 = intent.getStringExtra("ingredient1");
+        detail = intent.getStringExtra("detail");
     }
 
     public  void  XLRecycler()
     {
         contacts.add(new ContactRecycler(R.drawable.anhsp, "Tùng", "Dùng tốt"));
-        contacts.add(new ContactRecycler(R.drawable.anhqc, "Su", "Chất lượng"));
+        contacts.add(new ContactRecycler(R.drawable.anhsp, "Su", "Chất lượng"));
         initRecyclerView();
     }
 
@@ -68,9 +98,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         mhsp_lv_sanphamlienquan = findViewById(R.id.mhsp_lv_sanphamlienquan);
         arrayList = new ArrayList<>();//tạo 1 mảng
 
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhqc,"Kem chống nắng","9.999 người thích"));
+        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
         arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem dưỡng da","8.888 người thích"));
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhqc,"Kem chống nắng","9.999 người thích"));
+        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
 
         customAdapter = new CustomAdapter_Product_LienQuan(this, R.layout.row, arrayList);
         mhsp_lv_sanphamlienquan.setAdapter(customAdapter);
@@ -130,11 +160,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TreeNode parentTTSP = new TreeNode(TTSP).setViewHolder(new MyHolder(getApplicationContext(), true, MyHolder.DEFAULT, MyHolder.DEFAULT));
 
         //Child
-        MyHolder.IconTreeItem childItemTTSP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Tên:...");
+        MyHolder.IconTreeItem childItemTTSP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Tên:" + name);
         TreeNode childTTSP = new TreeNode(childItemTTSP).setViewHolder(new MyHolder(getApplicationContext(), false, R.layout.activity_proddetails_child_girdview, 25));
 
         //Child
-        MyHolder.IconTreeItem childItem1TTSP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Giá:...");
+        MyHolder.IconTreeItem childItem1TTSP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Giá:" + price);
         TreeNode child1TTSP = new TreeNode(childItem1TTSP).setViewHolder(new MyHolder(getApplicationContext(), false, R.layout.activity_proddetails_child_girdview, 25));
 
         //Add child.
@@ -146,11 +176,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TreeNode parentBTP = new TreeNode(BTP).setViewHolder(new MyHolder(getApplicationContext(), true, MyHolder.DEFAULT, MyHolder.DEFAULT));
 
         //Child
-        MyHolder.IconTreeItem childItemBTP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Thành phần 1:...");
+        MyHolder.IconTreeItem childItemBTP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Thành phần 1:" + ingredient1);
         TreeNode childBTP = new TreeNode(childItemBTP).setViewHolder(new MyHolder(getApplicationContext(), false, R.layout.activity_proddetails_child_girdview, 25));
 
         //Child
-        MyHolder.IconTreeItem childItem1BTP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Thành phần 2:...");
+        MyHolder.IconTreeItem childItem1BTP = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Thành phần 2:" + ingredient2);
         TreeNode child1BTP = new TreeNode(childItem1BTP).setViewHolder(new MyHolder(getApplicationContext(), false, R.layout.activity_proddetails_child_girdview, 25));
 
         //Add child.
@@ -162,7 +192,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TreeNode parentCSD = new TreeNode(CSD).setViewHolder(new MyHolder(getApplicationContext(), true, MyHolder.DEFAULT, MyHolder.DEFAULT));
 
         //Child
-        MyHolder.IconTreeItem childItemCSD = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Chi tiết..");
+        MyHolder.IconTreeItem childItemCSD = new MyHolder.IconTreeItem(R.drawable.ic_folder, "Chi tiết" + detail);
         TreeNode childCSD = new TreeNode(childItemCSD).setViewHolder(new MyHolder(getApplicationContext(), false, R.layout.activity_proddetails_child_girdview, 25));
 
         //Add child.

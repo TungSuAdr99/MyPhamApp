@@ -1,4 +1,4 @@
-package com.example.review.ProductActivity.GirdView_ProductActivity;
+package com.example.review.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,17 +8,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.review.R;
+import com.example.review.model.Product;
 
 import java.util.ArrayList;
 
 
-public class ProductCustomAdapter extends BaseAdapter {
+public class ProductFullAdapter extends BaseAdapter {
     private Context context;
     private int resource;
-    private ArrayList<ProductContact> arrContact;
+    private ArrayList<Product> arrContact;
+    private onClick mClick;
 
-    public ProductCustomAdapter(Context context, int resource, ArrayList<ProductContact> arrContact) {
+    public ProductFullAdapter(Context context, int resource, ArrayList<Product> arrContact) {
         this.context = context;
         this.resource = resource;
         this.arrContact = arrContact;
@@ -40,7 +43,7 @@ public class ProductCustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHoldel holdel;
         if(convertView == null)
         {
@@ -55,9 +58,17 @@ public class ProductCustomAdapter extends BaseAdapter {
             holdel = (ViewHoldel) convertView.getTag();
         }
 
-        ProductContact productContact = arrContact.get(position);
-        holdel.imgAnh.setBackgroundResource(productContact.getPrd_gv_img());//lấy ảnh qua kiểu int
-        holdel.tvName.setText(productContact.getPrd_gv_name());
+        Product productContact = arrContact.get(position);
+        //holdel.imgAnh.setBackgroundResource(productContact.getPrd_gv_img());//lấy ảnh qua kiểu int
+        holdel.tvName.setText(productContact.getName());
+        Glide.with(context).load(productContact.getImage()).into(holdel.imgAnh);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClick.click(position);
+            }
+        });
 
         return convertView;
     }
@@ -66,5 +77,13 @@ public class ProductCustomAdapter extends BaseAdapter {
     {
         ImageView imgAnh;
         TextView tvName;
+    }
+
+    public void setClick(onClick click){
+        mClick = click;
+    }
+
+    public interface onClick{
+        void click(int position);
     }
 }

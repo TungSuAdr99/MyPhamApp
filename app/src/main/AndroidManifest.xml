@@ -11,13 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".ProductDetailsActivity.ProductDetailsActivity"></activity>
+        <activity android:name=".activity.ProductDetailsActivity"></activity>
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.AdminActivity" />
-=======
         <activity android:name=".activity.SearchActivity"></activity>
->>>>>>> 6f924fe052f2355f4eea96294396546bce6069d6
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">

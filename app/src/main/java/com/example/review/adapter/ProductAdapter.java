@@ -1,4 +1,4 @@
-package com.example.review.model.adapter;
+package com.example.review.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
