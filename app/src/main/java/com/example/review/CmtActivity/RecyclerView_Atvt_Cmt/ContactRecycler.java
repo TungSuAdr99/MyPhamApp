@@ -1,4 +1,4 @@
-package com.example.review.ProductDetailsActivity.RecyclerView_Cmt;
+package com.example.review.CmtActivity.RecyclerView_Atvt_Cmt;
 
 public class ContactRecycler {
     private int image;

@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.review.adapter.ProductFullAdapter;
 import com.example.review.activity.ProductDetailsActivity;
@@ -71,6 +73,17 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
         ArrayAdapter<String> adapte = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, list);//Trung gian để đưa data lên view
         adapte.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);//tạo ra nút để tích
         Product_spn_DSSanpham.setAdapter(adapte);//lấy data lên cho sp1
+
+        Product_spn_DSSanpham.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), Product_spn_DSSanpham.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void GirdViewSP(View view)
