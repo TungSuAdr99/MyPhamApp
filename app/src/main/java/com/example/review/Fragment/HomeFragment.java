@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.review.MainActivity;
 import com.example.review.Tab.TabAddressFragment;
 import com.example.review.Tab.TabProductFragment;
 
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
         rlVisibility.setVisibility(View.GONE);
-
+        MainActivity.bottomNav.setVisibility(View.GONE);
 
         listSP(view);
         chuyenQC(view);
@@ -205,6 +206,7 @@ public class HomeFragment extends Fragment {
                 arrayList.clear();
                 progressBar.setVisibility(View.GONE);
                 rlVisibility.setVisibility(View.VISIBLE);
+                MainActivity.bottomNav.setVisibility(View.VISIBLE);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Product product = snapshot.getValue(Product.class);
