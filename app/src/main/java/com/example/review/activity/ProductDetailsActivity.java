@@ -203,8 +203,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
         arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem dưỡng da","8.888 người thích"));
         arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem dưỡng da","8.888 người thích"));
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
 
         customAdapter = new CustomAdapter_Product_LienQuan(this, R.layout.row, arrayList);
         mhsp_lv_sanphamlienquan.setAdapter(customAdapter);

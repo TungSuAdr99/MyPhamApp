@@ -67,14 +67,8 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/Tab3"
-                    android:text="Ưu đãi"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/Tab4"
-                    android:text="Tìm kiếm nhiều"/>
+                    android:text="Theo Đánh giá"/>
             </com.google.android.material.tabs.TabLayout>
 
         </LinearLayout>

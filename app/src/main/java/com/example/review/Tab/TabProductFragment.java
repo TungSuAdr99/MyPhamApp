@@ -67,7 +67,6 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
 
         GirdViewSP(view);
         SpinnerSP(view);
-
         setSpinner();
     }
 

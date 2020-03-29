@@ -22,8 +22,7 @@ import com.example.review.MainActivity;
 import com.example.review.Tab.TabAddressFragment;
 import com.example.review.Tab.TabProductFragment;
 
-import com.example.review.Tab.TabSeachsFragment;
-import com.example.review.Tab.TabEndowFragment;
+import com.example.review.Tab.TabQualityFragment;
 import com.example.review.R;
 import com.example.review.activity.SearchActivity;
 import com.example.review.adapter.ProductAdapter;
@@ -111,11 +110,7 @@ public class HomeFragment extends Fragment {
                 }
                 else if(tab.getPosition() == 3)
                 {
-                    fragment = new TabEndowFragment();
-                }
-                else if(tab.getPosition() == 4)
-                {
-                    fragment = new TabSeachsFragment();
+                    fragment = new TabQualityFragment();
                 }
 
                 frameLayout.setVisibility(View.VISIBLE);

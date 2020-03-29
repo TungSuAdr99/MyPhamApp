@@ -27,16 +27,17 @@
 
             <TextView
                 android:id="@+id/txt_name"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:textColor="@color/pumpkin"
                 android:layout_height="25dp"
                 android:text="Tên Sản Phẩm"
-                android:layout_marginLeft="20dp"/>
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:id="@+id/txt_price"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:textColor="@color/pumpkin"
                 android:layout_height="25dp"
@@ -45,11 +46,20 @@
 
             <TextView
                 android:id="@+id/txt_ingredient"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="55dp"
                 android:layout_width="match_parent"
                 android:textColor="@color/pumpkin"
                 android:layout_height="25dp"
                 android:text="thành phần"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/txt_sale"
+                android:layout_marginTop="80dp"
+                android:layout_width="match_parent"
+                android:textColor="@color/pumpkin"
+                android:layout_height="25dp"
+                android:text="Đã giảm: 50%"
                 android:layout_marginLeft="20dp"/>
 
             <TextView
