@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -41,6 +43,8 @@ public class HomeFragment extends Fragment {
     private ViewFlipper viewFlipper;
     private ImageView imgSearch;
     ImageView imgAdvertise1, imgAdvertise2;
+    private ProgressBar progressBar;
+    private RelativeLayout rlVisibility;
 
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
@@ -55,6 +59,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) { // dùng như main ở activivy
         super.onViewCreated(view, savedInstanceState);
+
+        progressBar = view.findViewById(R.id.progress_bar);
+        rlVisibility = view.findViewById(R.id.rl_visibility);
+
+        progressBar.setVisibility(View.VISIBLE);
+        rlVisibility.setVisibility(View.GONE);
+
 
         listSP(view);
         chuyenQC(view);
@@ -155,6 +166,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                arrayAdvertises.clear();
+                progressBar.setVisibility(View.GONE);
+                rlVisibility.setVisibility(View.VISIBLE);
+
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     arrayAdvertises.add(snapshot.getValue().toString());
                 }
@@ -188,6 +203,8 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 arrayList.clear();
+                progressBar.setVisibility(View.GONE);
+                rlVisibility.setVisibility(View.VISIBLE);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Product product = snapshot.getValue(Product.class);

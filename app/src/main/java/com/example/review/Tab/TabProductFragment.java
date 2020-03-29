@@ -17,9 +17,11 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.review.adapter.ProductFullAdapter;
 import com.example.review.activity.ProductDetailsActivity;
 import com.example.review.R;
+import com.example.review.model.MySpinner;
 import com.example.review.model.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +40,11 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
     private ArrayList<Product> arrayList;
     private ProductFullAdapter customAdapter;
     private Spinner Product_spn_DSSanpham;
+    private List<MySpinner> arrSpinner = new ArrayList<>();//Tạo mảng
+    private List<String> spinnerArr = new ArrayList<>();//Tạo mảng
+    private int positionSpinner;
+    private ArrayList<Product> products;
+
 
 
     public TabProductFragment() {
@@ -57,27 +64,58 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
         super.onViewCreated(view, savedInstanceState);
         Product_gv_DSSanphamchon = view.findViewById(R.id.Product_gv_DSSanphamchon);
 
+
         GirdViewSP(view);
         SpinnerSP(view);
+
+        setSpinner();
+    }
+
+    private void setSpinner(){
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance()
+                .getReference().child("Spinner");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                arrSpinner.clear();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    MySpinner spinner = snapshot.getValue(MySpinner.class);
+                    spinner.setKey(snapshot.getKey());
+                    arrSpinner.add(spinner);
+                    spinnerArr.add(spinner.getName());
+                }
+
+                ArrayAdapter<String> adapter =
+                        new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, spinnerArr);//Trung gian để đưa data lên view
+                adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);//tạo ra nút để tích
+                Product_spn_DSSanpham.setAdapter(adapter);//lấy data lên cho sp1
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void SpinnerSP(View view)
     {
         Product_spn_DSSanpham = view.findViewById(R.id.Product_spn_DSSanpham);
-        List<String> list = new ArrayList<>();//Tạo mảng
-        list.add("Son");
-        list.add("Kem chống nắng");
-        list.add("Kem dưỡng da");
-        list.add("Mặt nạ");
-
-        ArrayAdapter<String> adapte = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, list);//Trung gian để đưa data lên view
-        adapte.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);//tạo ra nút để tích
-        Product_spn_DSSanpham.setAdapter(adapte);//lấy data lên cho sp1
 
         Product_spn_DSSanpham.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), Product_spn_DSSanpham.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                for(int i=0; i<arrSpinner.size(); i++){
+                    int p = Integer.parseInt(arrSpinner.get(i).getKey());
+
+                    if(p == position){
+                        setCosmetics();
+                        positionSpinner = position;
+                    }
+                }
             }
 
             @Override
@@ -108,7 +146,18 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
                     arrayList.add(product);
                 }
 
-                setAdapter();
+                products = new ArrayList<>();
+                for(int i=0; i<arrayList.size(); i++){
+                    int p = Integer.parseInt(arrayList.get(i).getSpinner());
+
+                    if(p == positionSpinner){
+                        products.add(arrayList.get(i));
+                    }
+                }
+
+                customAdapter = new ProductFullAdapter(getContext(), R.layout.activity_product_girdview, products);
+                Product_gv_DSSanphamchon.setAdapter(customAdapter);
+                customAdapter.setClick(TabProductFragment.this);
             }
 
             @Override
@@ -118,23 +167,17 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
         });
     }
 
-    private void setAdapter(){
-        customAdapter = new ProductFullAdapter(getContext(), R.layout.activity_product_girdview, arrayList);
-        Product_gv_DSSanphamchon.setAdapter(customAdapter);
-        customAdapter.setClick(this);
-    }
-
     @Override
     public void click(int position) {
         Intent intent = new Intent(getContext(), ProductDetailsActivity.class);
-        intent.putExtra("name", arrayList.get(position).getName());
-        intent.putExtra("image", arrayList.get(position).getImage());
-        intent.putExtra("price", arrayList.get(position).getPrice());
-        intent.putExtra("ingredient1", arrayList.get(position).getIngredient1());
-        intent.putExtra("ingredient2", arrayList.get(position).getIngredient2());
-        intent.putExtra("detail", arrayList.get(position).getDetail());
+        intent.putExtra("name", products.get(position).getName());
+        intent.putExtra("image", products.get(position).getImage());
+        intent.putExtra("price", products.get(position).getPrice());
+        intent.putExtra("ingredient", products.get(position).getIngredient());
+        intent.putExtra("detail", products.get(position).getDetail());
+        intent.putExtra("spinner", positionSpinner);
+        intent.putExtra("position", position);
 
-        Log.e("KMF", arrayList.get(position).getDetail());
         startActivity(intent);
     }
 }

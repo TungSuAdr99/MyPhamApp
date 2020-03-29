@@ -33,12 +33,7 @@ public class MyHolder extends TreeNode.BaseNodeViewHolder<MyHolder.IconTreeItem>
     @Override
     public View createNodeView(TreeNode node, IconTreeItem value) {
         final LayoutInflater inflater = LayoutInflater.from(context);
-        final View view;
-        if (child == DEFAULT) {
-            view = inflater.inflate(R.layout.activity_prddetails_parent_girdview, null, false);
-        } else {
-            view = inflater.inflate(child, null, false);
-        }
+        final View view = inflater.inflate(R.layout.activity_prddetails_parent_girdview, null, false);
 
         if (leftMargin == DEFAULT) {
             leftMargin = getDimens(R.dimen.treeview_left_padding);

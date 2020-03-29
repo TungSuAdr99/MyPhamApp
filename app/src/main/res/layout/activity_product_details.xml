@@ -27,15 +27,46 @@
 
             <TextView
                 android:id="@+id/txt_name"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:textColor="@color/pumpkin"
+                android:layout_height="25dp"
+                android:text="Tên Sản Phẩm"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/txt_price"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:textColor="@color/pumpkin"
                 android:layout_height="25dp"
-                android:textSize="20sp"
-                android:text="Tên Sản Phẩm" />
+                android:text="Gia"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/txt_ingredient"
+                android:layout_marginTop="80dp"
+                android:layout_width="match_parent"
+                android:textColor="@color/pumpkin"
+                android:layout_height="25dp"
+                android:text="thành phần"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/txt_review"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:text="Đánh giá"
+                android:layout_marginRight="10dp"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:background="@drawable/custom_text_view_review"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/rating_bar"
+                android:layout_gravity="center_horizontal" />
 
             <RatingBar
-                android:id="@+id/rtbProductRating"
+                android:id="@+id/rating_bar"
                 style="@style/foodRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
@@ -43,7 +74,7 @@
                 android:layout_alignParentRight="true"
                 android:isIndicator="false"
                 android:numStars="5"
-                android:rating="3.5" />
+                android:rating="0" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -70,7 +101,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/mhsp_lo_thich"
+            android:id="@+id/ll_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="7dp"
@@ -79,7 +110,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/mhsp_img_thich"
+                android:id="@+id/img_love"
                 android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -96,7 +127,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/mhsp_lo_binhluan"
+            android:id="@+id/ll_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="7dp"
@@ -121,7 +152,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/mhsp_lo_chiase"
+            android:id="@+id/ll_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="7dp"
@@ -147,6 +178,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/txt_size_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -159,7 +191,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mhsp_img_recycle"
+            android:id="@+id/img_user_comment"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="centerCrop"
@@ -172,7 +204,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/mhsp_name_recycle"
+                android:id="@+id/txt_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="5dp"
@@ -181,7 +213,7 @@
                 android:textColor="@color/pumpkin" />
 
             <TextView
-                android:id="@+id/mhsp_binhluan_recycle"
+                android:id="@+id/txt_user_comment"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginLeft="5dp"
@@ -191,12 +223,12 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/mhsp_tv_xem_cmt"
+        android:id="@+id/txt_see_comment"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
-        android:text="Xem tất cả n số bình luận"
+        android:text="Xem tất cả bình luận"
         android:textSize="15dp"/>
 
     <TextView

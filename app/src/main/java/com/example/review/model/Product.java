@@ -5,21 +5,21 @@ public class Product {
     String key;
     String name;
     String price;
-    String ingredient1;
-    String ingredient2;
+    String ingredient;
     String detail;
+    String spinner;
 
     public Product() {
     }
 
-    public Product(String image, String key, String name, String price, String ingredient1, String ingredient2, String detail) {
+    public Product(String image, String key, String name, String price, String ingredient, String detail, String spinner) {
         this.image = image;
         this.key = key;
         this.name = name;
         this.price = price;
-        this.ingredient1 = ingredient1;
-        this.ingredient2 = ingredient2;
+        this.ingredient = ingredient;
         this.detail = detail;
+        this.spinner = spinner;
     }
 
     public String getImage() {
@@ -54,20 +54,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getIngredient1() {
-        return ingredient1;
+    public String getIngredient() {
+        return ingredient;
     }
 
-    public void setIngredient1(String ingredient1) {
-        this.ingredient1 = ingredient1;
-    }
-
-    public String getIngredient2() {
-        return ingredient2;
-    }
-
-    public void setIngredient2(String ingredient2) {
-        this.ingredient2 = ingredient2;
+    public void setIngredient(String ingredient1) {
+        this.ingredient = ingredient1;
     }
 
     public String getDetail() {
@@ -76,5 +68,13 @@ public class Product {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getSpinner() {
+        return spinner;
+    }
+
+    public void setSpinner(String spinner) {
+        this.spinner = spinner;
     }
 }
