@@ -251,7 +251,7 @@
         android:textStyle="bold"/>
 
     <ListView
-        android:id="@+id/mhsp_lv_sanphamlienquan"
+        android:id="@+id/lv_related_product"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

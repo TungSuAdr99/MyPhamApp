@@ -8,11 +8,12 @@ public class Product {
     String ingredient;
     String detail;
     String spinner;
+    String keyShop;
 
     public Product() {
     }
 
-    public Product(String image, String key, String name, String price, String ingredient, String detail, String spinner) {
+    public Product(String image, String key, String name, String price, String ingredient, String detail, String spinner, String keyShop) {
         this.image = image;
         this.key = key;
         this.name = name;
@@ -20,6 +21,7 @@ public class Product {
         this.ingredient = ingredient;
         this.detail = detail;
         this.spinner = spinner;
+        this.keyShop = keyShop;
     }
 
     public String getImage() {
@@ -76,5 +78,13 @@ public class Product {
 
     public void setSpinner(String spinner) {
         this.spinner = spinner;
+    }
+
+    public String getKeyShop() {
+        return keyShop;
+    }
+
+    public void setKeyShop(String keyShop) {
+        this.keyShop = keyShop;
     }
 }

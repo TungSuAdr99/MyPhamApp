@@ -23,20 +23,17 @@
             android:hint="Nhập tên sản phẩm"/>
 
         <ImageView
-            android:id="@+id/img_Timkiem"
+            android:id="@+id/img_search"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:background="@color/pumpkin"
             android:layout_alignParentRight="true"
-            app:srcCompat="@drawable/item_timkiem" />
+            app:srcCompat="@drawable/ic_search" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:id="@+id/rv_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

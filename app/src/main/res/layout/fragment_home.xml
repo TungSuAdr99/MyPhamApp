@@ -27,62 +27,12 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                app:srcCompat="@drawable/item_timkiem" />
+                app:srcCompat="@drawable/ic_search" />
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/layout_tab"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_below="@+id/rl_search">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tablayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/White"
-                app:tabTextColor="@color/pumpkin"
-                app:tabSelectedTextColor="@color/pumpkin"
-                style="@style/CustomTabLayout">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Tab0"
-                    android:text="TabRỗng"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Tab1"
-                    android:text="Sản phẩm"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Tab2"
-                    android:text="Địa chỉ"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Tab4"
-                    android:text="Theo Đánh giá"/>
-            </com.google.android.material.tabs.TabLayout>
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/frame_tab"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/layout_tab"
-            android:visibility="gone"/>
-
-        <LinearLayout
             android:id="@+id/linear_layout"
-            android:layout_below="@+id/frame_tab"
+            android:layout_below="@+id/rl_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -143,6 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
                 android:numColumns="3" />
 
         </LinearLayout>

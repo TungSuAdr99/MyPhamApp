@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ViewFlipper;
@@ -19,15 +17,11 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.review.MainActivity;
-import com.example.review.Tab.TabAddressFragment;
-import com.example.review.Tab.TabProductFragment;
 
-import com.example.review.Tab.TabQualityFragment;
 import com.example.review.R;
 import com.example.review.activity.SearchActivity;
-import com.example.review.adapter.ProductAdapter;
-import com.example.review.model.Product;
-import com.google.android.material.tabs.TabLayout;
+import com.example.review.adapter.ShopAdapter;
+import com.example.review.model.Shop;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,17 +32,13 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private GridView gvCosmetics;
-    ArrayList<Product> arrayList;
-    ProductAdapter customAdapter;
+    ArrayList<Shop> arrayShops;
+    ShopAdapter customAdapter;
     private ViewFlipper viewFlipper;
     private ImageView imgSearch;
     ImageView imgAdvertise1, imgAdvertise2;
     private ProgressBar progressBar;
     private RelativeLayout rlVisibility;
-
-    private TabLayout tabLayout;
-    private FrameLayout frameLayout;
-    private LinearLayout linearLayout;
 
     @Nullable
     @Override
@@ -69,7 +59,6 @@ public class HomeFragment extends Fragment {
 
         listSP(view);
         chuyenQC(view);
-        Tablayout(view);
         chuyenTk(view);
     }
 
@@ -81,50 +70,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 startActivity(intent);
-            }
-        });
-    }
-
-    public  void Tablayout(View view)
-    {
-        tabLayout = view.findViewById(R.id.tablayout);
-        frameLayout = view.findViewById(R.id.frame_tab);
-        linearLayout = view.findViewById(R.id.linear_layout);
-
-        frameLayout.setVisibility(View.GONE);
-        linearLayout.setVisibility(View.VISIBLE);
-
-        ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(0).setVisibility(View.GONE);//ẩn cái đầu tiên
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Fragment fragment = null;
-               if(tab.getPosition() == 1)
-                {
-                    fragment = new TabProductFragment();
-                }
-                else if(tab.getPosition() == 2)
-                {
-                    fragment = new TabAddressFragment();
-                }
-                else if(tab.getPosition() == 3)
-                {
-                    fragment = new TabQualityFragment();
-                }
-
-                frameLayout.setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.GONE);
-                getFragmentManager().beginTransaction().replace(R.id.frament, fragment).commit();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
@@ -184,29 +129,28 @@ public class HomeFragment extends Fragment {
     public  void listSP(View view)
     {
         gvCosmetics = view.findViewById(R.id.gv_ds);
-        arrayList = new ArrayList<>();
+        arrayShops = new ArrayList<>();
 
-        setCosmetics();
+        retrieveShops();
 
     }
 
-    //set MyPham
-    private void setCosmetics(){
+    private void retrieveShops(){
         DatabaseReference databaseRef = FirebaseDatabase.getInstance()
-                .getReference().child("MyPham");
+                .getReference().child("Shop");
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                arrayList.clear();
+                arrayShops.clear();
                 progressBar.setVisibility(View.GONE);
                 rlVisibility.setVisibility(View.VISIBLE);
                 MainActivity.bottomNav.setVisibility(View.VISIBLE);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Product product = snapshot.getValue(Product.class);
-                    product.setKey(snapshot.getKey());
-                    arrayList.add(product);
+                    Shop shop = snapshot.getValue(Shop.class);
+                    shop.setKey(snapshot.getKey());
+                    arrayShops.add(shop);
                 }
 
                 setAdapter();
@@ -221,8 +165,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setAdapter() {
-        customAdapter = new ProductAdapter(getContext(), R.layout.row, arrayList);
-        gvCosmetics.setAdapter(customAdapter);
+        customAdapter = new ShopAdapter(getContext(), R.layout.item_shop, arrayShops);
         customAdapter.notifyDataSetChanged();
-    }
+        gvCosmetics.setAdapter(customAdapter);    }
 }

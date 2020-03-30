@@ -1,4 +1,4 @@
-package com.example.review.Tab;
+package com.example.review.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.review.adapter.ProductFullAdapter;
 import com.example.review.activity.ProductDetailsActivity;
 import com.example.review.R;
@@ -31,11 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabProductFragment extends Fragment implements ProductFullAdapter.onClick{
+public class ProductFragment extends Fragment implements ProductFullAdapter.onClick{
     private GridView Product_gv_DSSanphamchon;
     private ArrayList<Product> arrayList;
     private ProductFullAdapter customAdapter;
@@ -47,7 +45,7 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
 
 
 
-    public TabProductFragment() {
+    public ProductFragment() {
         // Required empty public constructor
     }
 
@@ -56,7 +54,7 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_s_p, container, false);
+        return inflater.inflate(R.layout.fragment_product, container, false);
     }
 
     @Override
@@ -77,7 +75,7 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                arrSpinner.clear();
+                //arrSpinner.clear();
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     MySpinner spinner = snapshot.getValue(MySpinner.class);
@@ -89,6 +87,7 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
                 ArrayAdapter<String> adapter =
                         new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, spinnerArr);//Trung gian để đưa data lên view
                 adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);//tạo ra nút để tích
+                adapter.notifyDataSetChanged();
                 Product_spn_DSSanpham.setAdapter(adapter);//lấy data lên cho sp1
 
             }
@@ -154,9 +153,9 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
                     }
                 }
 
-                customAdapter = new ProductFullAdapter(getContext(), R.layout.activity_product_girdview, products);
+                customAdapter = new ProductFullAdapter(getContext(), R.layout.item_product, products);
                 Product_gv_DSSanphamchon.setAdapter(customAdapter);
-                customAdapter.setClick(TabProductFragment.this);
+                customAdapter.setClick(ProductFragment.this);
             }
 
             @Override
@@ -176,6 +175,37 @@ public class TabProductFragment extends Fragment implements ProductFullAdapter.o
         intent.putExtra("detail", products.get(position).getDetail());
         intent.putExtra("spinner", positionSpinner);
         intent.putExtra("position", position);
+
+        //related product
+        Random rand = new Random();
+        int positionRelatedOne = rand.nextInt(products.size());
+        int positionRelatedTwo = rand.nextInt(products.size());
+        int positionRelatedThree = rand.nextInt(products.size());
+
+        while (positionRelatedOne == positionRelatedTwo){
+            positionRelatedOne = rand.nextInt(products.size());
+        }
+
+        while (positionRelatedOne == positionRelatedThree){
+            positionRelatedOne = rand.nextInt(products.size());
+        }
+
+        while (positionRelatedTwo == positionRelatedThree){
+            positionRelatedTwo = rand.nextInt(products.size());
+        }
+
+        intent.putExtra("imageRelatedOne", products.get(positionRelatedOne).getImage());
+        intent.putExtra("nameRelatedOne", products.get(positionRelatedOne).getName());
+
+        intent.putExtra("imageRelatedTwo", products.get(positionRelatedTwo).getImage());
+        intent.putExtra("nameRelatedTwo", products.get(positionRelatedTwo).getName());
+
+        intent.putExtra("imageRelatedThree", products.get(positionRelatedThree).getImage());
+        intent.putExtra("nameRelatedThree", products.get(positionRelatedThree).getName());
+
+        intent.putExtra("positionRelatedOne", positionRelatedOne);
+        intent.putExtra("positionRelatedTwo", positionRelatedTwo);
+        intent.putExtra("positionRelatedThree", positionRelatedThree);
 
         startActivity(intent);
     }

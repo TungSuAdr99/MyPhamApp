@@ -15,18 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.review.ProductDetailsActivity.ListView_Product_LienQuan.Contact_Product_LienQuan;
-import com.example.review.ProductDetailsActivity.ListView_Product_LienQuan.CustomAdapter_Product_LienQuan;
+import com.example.review.model.RelatedProduct;
+import com.example.review.adapter.RelatedProductAdapter;
 
 import com.example.review.ProductDetailsActivity.TreeView.MyHolder;
 import com.example.review.ProductDetailsActivity.TreeView.model.TreeNode;
 import com.example.review.ProductDetailsActivity.TreeView.view.AndroidTreeView;
 import com.example.review.R;
-import com.example.review.adapter.CommentAdapter;
 import com.example.review.model.Comment;
 import com.example.review.model.Like;
 import com.example.review.model.Review;
-import com.example.review.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,9 +56,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView txtUserComment;
     private TextView txtUserName;
 
-    ArrayList<Contact_Product_LienQuan> arrayList;
-    CustomAdapter_Product_LienQuan customAdapter;
-    private ListView mhsp_lv_sanphamlienquan;
+    ArrayList<RelatedProduct> arrayList;
+    RelatedProductAdapter customAdapter;
+    private ListView lvRelatedProduct;
     private TextView txtSeeComment;
 
     //getIntent
@@ -73,8 +71,21 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private String image;
     private String ingredient;
     private String detail;
+    private int positionStar = -1;
+    private String imageRelatedOne;
+    private String nameRelatedOne;
+    private String imageRelatedTwo;
+    private String nameRelatedTwo;
+    private String imageRelatedThree;
+    private String nameRelatedThree;
+    private int positionRelatedOne;
+    private int positionRelatedTwo;
+    private int positionRelatedThree;
 
     private int sizeLike = 0;
+    private int sizeLikeRelatedOne = 0;
+    private int sizeLikeRelatedTwo = 0;
+    private int sizeLikeRelatedThree = 0;
 
     private FirebaseUser user;
     private DatabaseReference userLikeRef;
@@ -100,7 +111,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         takeIntent();
         TreeView();
-        LVSpLienquan();
 
         XLTextViewThich();
         switchToAtvtCmt();
@@ -127,14 +137,23 @@ public class ProductDetailsActivity extends AppCompatActivity {
         txtReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Review review = new Review(user.getUid(), ratingBar.getRating()+"", spinner+"", position+"");
+                if(user == null){
+                    Toast.makeText(ProductDetailsActivity.this, "Vui lòng đăng nhập", Toast.LENGTH_SHORT).show();
+                }else {
+                    Review review = new Review(user.getUid(), ratingBar.getRating()+"", spinner+"", position+"");
 
-                userReviewsRef.push().setValue(review);
+                    if(positionStar >= 0)
+                        userReviewsRef.child(reviews.get(positionStar).getKey()).removeValue();
+
+                    userReviewsRef.push().setValue(review);
+                }
             }
         });
     }
 
     private void initView() {
+        lvRelatedProduct = findViewById(R.id.lv_related_product);
+        arrayList = new ArrayList<>();
         txtName = findViewById(R.id.txt_name);
         txtPrice = findViewById(R.id.txt_price);
         txtIngredient = findViewById(R.id.txt_ingredient);
@@ -193,19 +212,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
         detail = intent.getStringExtra("detail");
         spinner = intent.getIntExtra("spinner", 0);
         position = intent.getIntExtra("position", 0);
-    }
 
-    public void LVSpLienquan()
-    {
-        mhsp_lv_sanphamlienquan = findViewById(R.id.mhsp_lv_sanphamlienquan);
-        arrayList = new ArrayList<>();//tạo 1 mảng
+        imageRelatedOne = intent.getStringExtra("imageRelatedOne");
+        imageRelatedTwo = intent.getStringExtra("imageRelatedTwo");
+        imageRelatedThree = intent.getStringExtra("imageRelatedThree");
 
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem dưỡng da","8.888 người thích"));
-        arrayList.add(new Contact_Product_LienQuan(R.drawable.anhsp,"Kem chống nắng","9.999 người thích"));
+        nameRelatedOne = intent.getStringExtra("nameRelatedOne");
+        nameRelatedTwo = intent.getStringExtra("nameRelatedTwo");
+        nameRelatedThree = intent.getStringExtra("nameRelatedThree");
 
-        customAdapter = new CustomAdapter_Product_LienQuan(this, R.layout.row, arrayList);
-        mhsp_lv_sanphamlienquan.setAdapter(customAdapter);
+        positionRelatedOne = intent.getIntExtra("positionRelatedOne", 0);
+        positionRelatedTwo = intent.getIntExtra("positionRelatedTwo", 0);
+        positionRelatedThree = intent.getIntExtra("positionRelatedThree", 0);
     }
 
     public void XLTextViewThich()
@@ -287,11 +305,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     int s = Integer.parseInt(likes.get(i).getSpinner());
                     int p = Integer.parseInt(likes.get(i).getPosition());
 
-                    if(s == spinner && p == position){
-                        sizeLike++;
-                        Log.e("KMFT", sizeLike + "=");
-                    }
-
                     if(s == spinner && p == position && likes.get(i).getUidUser().equals(user.getUid())){
                         imgLove.setImageResource(R.drawable.tym2);
                         isLove = false;
@@ -316,6 +329,23 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
 
                 txtSizeLike.setText(sizeLike + " lượt thích");
+
+                //relate product
+                for(int i=0; i<likes.size(); i++){
+
+                    int s = Integer.parseInt(likes.get(i).getSpinner());
+                    int p = Integer.parseInt(likes.get(i).getPosition());
+
+                    if(s == spinner && p == positionRelatedOne){
+                        sizeLikeRelatedOne++;
+                    }else if(s == spinner && p == positionRelatedTwo){
+                        sizeLikeRelatedTwo++;
+                    }else if(s == spinner && p == positionRelatedThree){
+                        sizeLikeRelatedThree++;
+                    }
+                }
+
+                setAdapter();
             }
 
             @Override
@@ -323,6 +353,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setAdapter(){
+        arrayList.add(new RelatedProduct(imageRelatedOne,nameRelatedOne,sizeLikeRelatedOne+" người thích"));
+        arrayList.add(new RelatedProduct(imageRelatedTwo,nameRelatedTwo,sizeLikeRelatedTwo+" người thích"));
+        arrayList.add(new RelatedProduct(imageRelatedThree,nameRelatedThree,sizeLikeRelatedThree+" người thích"));
+
+        customAdapter = new RelatedProductAdapter(ProductDetailsActivity.this, R.layout.item_shop, arrayList);
+        lvRelatedProduct.setAdapter(customAdapter);
     }
 
     private void retrieveComment(){
@@ -400,6 +439,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Review review = snapshot.getValue(Review.class);
+                    review.setKey(snapshot.getKey());
                     reviews.add(review);
                 }
 
@@ -409,6 +449,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     if(s == spinner && p == position && reviews.get(i).getUidUser().equals(user.getUid())){
                         ratingBar.setRating(Float.parseFloat(reviews.get(i).getReviewUser()));
+                        positionStar = i;
                         return;
                     }
                 }
