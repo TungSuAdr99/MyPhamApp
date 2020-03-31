@@ -60,6 +60,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     RelatedProductAdapter customAdapter;
     private ListView lvRelatedProduct;
     private TextView txtSeeComment;
+    private TextView txtPromotional;
 
     //getIntent
     private TextView txtName;
@@ -81,6 +82,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private int positionRelatedOne;
     private int positionRelatedTwo;
     private int positionRelatedThree;
+    private String promotional;
 
     private int sizeLike = 0;
     private int sizeLikeRelatedOne = 0;
@@ -117,9 +119,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         txtName.setText("Tên: " + name);
-        txtPrice.setText("Gía: " + price);
+        txtPrice.setText("Giá: " + price);
         txtIngredient.setText("Thành phần: " + ingredient);
         Glide.with(this).load(image).into(imageView);
+        txtPromotional.setText("Khuyến mãi: " + promotional);
 
         llShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +168,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         txtUserComment = findViewById(R.id.txt_user_comment);
         ratingBar = findViewById(R.id.rating_bar);
         txtReview = findViewById(R.id.txt_review);
+        txtPromotional = findViewById(R.id.txt_promotional);
     }
 
     private void switchToAtvtCmt()
@@ -212,6 +216,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         detail = intent.getStringExtra("detail");
         spinner = intent.getIntExtra("spinner", 0);
         position = intent.getIntExtra("position", 0);
+        promotional = intent.getStringExtra("promotional");
+
 
         imageRelatedOne = intent.getStringExtra("imageRelatedOne");
         imageRelatedTwo = intent.getStringExtra("imageRelatedTwo");
@@ -292,7 +298,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 likes.clear();
-                Log.e("KMFT", "55=");
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Like like = snapshot.getValue(Like.class);
                     like.setKey(snapshot.getKey());
@@ -331,6 +336,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 txtSizeLike.setText(sizeLike + " lượt thích");
 
                 //relate product
+                arrayList.clear();
+                sizeLikeRelatedOne = 0;
+                sizeLikeRelatedTwo = 0;
+                sizeLikeRelatedThree = 0;
                 for(int i=0; i<likes.size(); i++){
 
                     int s = Integer.parseInt(likes.get(i).getSpinner());

@@ -175,6 +175,7 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
         intent.putExtra("detail", products.get(position).getDetail());
         intent.putExtra("spinner", positionSpinner);
         intent.putExtra("position", position);
+        intent.putExtra("promotional", products.get(position).getPromotional());
 
         //related product
         Random rand = new Random();

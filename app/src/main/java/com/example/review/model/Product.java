@@ -9,11 +9,13 @@ public class Product {
     String detail;
     String spinner;
     String keyShop;
+    String promotional;
 
     public Product() {
     }
 
-    public Product(String image, String key, String name, String price, String ingredient, String detail, String spinner, String keyShop) {
+    public Product(String image, String key, String name, String price, String ingredient,
+                   String detail, String spinner, String keyShop, String promotional) {
         this.image = image;
         this.key = key;
         this.name = name;
@@ -22,6 +24,7 @@ public class Product {
         this.detail = detail;
         this.spinner = spinner;
         this.keyShop = keyShop;
+        this.promotional = promotional;
     }
 
     public String getImage() {
@@ -86,5 +89,13 @@ public class Product {
 
     public void setKeyShop(String keyShop) {
         this.keyShop = keyShop;
+    }
+
+    public String getPromotional() {
+        return promotional;
+    }
+
+    public void setPromotional(String promotional) {
+        this.promotional = promotional;
     }
 }
