@@ -60,7 +60,7 @@ public class CommentActivity extends AppCompatActivity {
 
     private int currentUserPosition = -1;
 
-    private int position;
+    private String keyProduct;
     private int spinner;
 
     @Override
@@ -98,7 +98,7 @@ public class CommentActivity extends AppCompatActivity {
     private void takeIntent(){
         Intent intent = getIntent();
         spinner = intent.getIntExtra("spinner", 0);
-        position = intent.getIntExtra("position", 0);
+        keyProduct = intent.getStringExtra("keyProduct");
     }
 
     private void initView() {
@@ -168,7 +168,7 @@ public class CommentActivity extends AppCompatActivity {
                                 comment.setNameUser(users.get(currentUserPosition).getName());
                                 comment.setUidUser(users.get(currentUserPosition).getUid());
                                 comment.setSpinner(spinner +"");
-                                comment.setPosition(position +"");
+                                comment.setKeyProduct(keyProduct);
 
                                 userCommentRef.push().setValue(comment);
                             }
@@ -188,7 +188,7 @@ public class CommentActivity extends AppCompatActivity {
             comment.setNameUser(users.get(currentUserPosition).getName());
             comment.setUidUser(users.get(currentUserPosition).getUid());
             comment.setSpinner(spinner +"");
-            comment.setPosition(position +"");
+            comment.setKeyProduct(keyProduct);
 
             userCommentRef.push().setValue(comment);
         }
@@ -214,7 +214,7 @@ public class CommentActivity extends AppCompatActivity {
                     comment.setNameUser(users.get(currentUserPosition).getName());
                     comment.setUidUser(users.get(currentUserPosition).getUid());
                     comment.setSpinner(spinner +"");
-                    comment.setPosition(position +"");
+                    comment.setKeyProduct(keyProduct);
 
                     userCommentRef.push().setValue(comment);
                 }
@@ -266,9 +266,9 @@ public class CommentActivity extends AppCompatActivity {
                         for(int i=0; i<comments.size(); i++){
 
                             int s = Integer.parseInt(comments.get(i).getSpinner());
-                            int p = Integer.parseInt(comments.get(i).getPosition());
+                            String commentProductKey = comments.get(i).getKeyProduct();
 
-                            if(s == spinner && p == position){
+                            if(s == spinner && commentProductKey.equals(keyProduct)){
 
                                 arrComments.add(comments.get(i));
 

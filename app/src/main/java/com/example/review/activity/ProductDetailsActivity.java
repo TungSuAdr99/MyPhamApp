@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.review.model.Product;
 import com.example.review.model.RelatedProduct;
 import com.example.review.adapter.RelatedProductAdapter;
 
@@ -45,7 +46,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private LinearLayout linearLayoutComment;
     private TextView txtSizeLike;
     private LinearLayout llShare;
-    private int position;
     private int spinner;
     private DatabaseReference userCommentRef;
     private RatingBar ratingBar;
@@ -79,10 +79,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private String nameRelatedTwo;
     private String imageRelatedThree;
     private String nameRelatedThree;
-    private int positionRelatedOne;
-    private int positionRelatedTwo;
-    private int positionRelatedThree;
-    private String promotional;
+
+    //key product
+    private String keyRelatedOne;
+    private String keyRelatedTwo;
+    private String keyRelatedThree;
+
+    private String promotional; //khuyến mãi
+    private String keyProduct = "";
 
     private int sizeLike = 0;
     private int sizeLikeRelatedOne = 0;
@@ -91,10 +95,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private FirebaseUser user;
     private DatabaseReference userLikeRef;
+    private DatabaseReference cosmeticRef;
 
     private ArrayList<Like> likes = new ArrayList<>();
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Review> reviews = new ArrayList<>();
+    private ArrayList<Product> arrayProducts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,16 +108,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
 
         initView();
+        takeIntent();
 
         userLikeRef = FirebaseDatabase.getInstance().getReference().child("userLikes");
         userCommentRef = FirebaseDatabase.getInstance().getReference().child("UserComments");
         userReviewsRef = FirebaseDatabase.getInstance().getReference().child("UserReviews");
+        cosmeticRef = FirebaseDatabase.getInstance().getReference().child("MyPham");
 
-        retrieveUserLikes();
-        retrieveComment();
-        retrieveReviews();
-
-        takeIntent();
         TreeView();
 
         XLTextViewThich();
@@ -143,12 +146,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if(user == null){
                     Toast.makeText(ProductDetailsActivity.this, "Vui lòng đăng nhập", Toast.LENGTH_SHORT).show();
                 }else {
-                    Review review = new Review(user.getUid(), ratingBar.getRating()+"", spinner+"", position+"");
+                    Review review = new Review(user.getUid(), ratingBar.getRating()+"",
+                            spinner+"", keyProduct);
 
                     if(positionStar >= 0)
                         userReviewsRef.child(reviews.get(positionStar).getKey()).removeValue();
 
                     userReviewsRef.push().setValue(review);
+
+                    Toast.makeText(ProductDetailsActivity.this, "cảm ơn b đã đánh giá sản phẩm này", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -182,7 +188,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if(user != null){
                     Intent intent = new Intent(ProductDetailsActivity.this, CommentActivity.class);
                     intent.putExtra("spinner", spinner);
-                    intent.putExtra("position", position);
+                    intent.putExtra("keyProduct", keyProduct);
                     startActivity(intent);
                 }else {
                     Toast.makeText(ProductDetailsActivity.this,
@@ -197,7 +203,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if(user != null){
                     Intent intent = new Intent(ProductDetailsActivity.this, CommentActivity.class);
                     intent.putExtra("spinner", spinner);
-                    intent.putExtra("position", position);
+                    intent.putExtra("keyProduct", keyProduct);
                     startActivity(intent);
                 }else {
                     Toast.makeText(ProductDetailsActivity.this,
@@ -215,9 +221,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ingredient = intent.getStringExtra("ingredient");
         detail = intent.getStringExtra("detail");
         spinner = intent.getIntExtra("spinner", 0);
-        position = intent.getIntExtra("position", 0);
         promotional = intent.getStringExtra("promotional");
-
+        keyProduct = intent.getStringExtra("keyProduct");
 
         imageRelatedOne = intent.getStringExtra("imageRelatedOne");
         imageRelatedTwo = intent.getStringExtra("imageRelatedTwo");
@@ -227,9 +232,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         nameRelatedTwo = intent.getStringExtra("nameRelatedTwo");
         nameRelatedThree = intent.getStringExtra("nameRelatedThree");
 
-        positionRelatedOne = intent.getIntExtra("positionRelatedOne", 0);
-        positionRelatedTwo = intent.getIntExtra("positionRelatedTwo", 0);
-        positionRelatedThree = intent.getIntExtra("positionRelatedThree", 0);
+        keyRelatedOne = intent.getStringExtra("keyRelatedOne");
+        keyRelatedTwo = intent.getStringExtra("keyRelatedTwo");
+        keyRelatedThree = intent.getStringExtra("keyRelatedThree");
     }
 
     public void XLTextViewThich()
@@ -244,7 +249,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     if(isLove){
                         isLove = false;
                         imgLove.setImageResource(R.drawable.tym2);
-                        Like like = new Like(spinner+"", position+"", user.getUid());
+                        Like like = new Like(spinner+"", keyProduct, user.getUid());
                         userLikeRef.push().setValue(like);
                     }else {
 
@@ -253,9 +258,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         for(int i=0; i<likes.size(); i++){
 
                             int s = Integer.parseInt(likes.get(i).getSpinner());
-                            int p = Integer.parseInt(likes.get(i).getPosition());
+                            String likeProductKey = likes.get(i).getKeyProduct();
 
-                            if(s == spinner && p == position && likes.get(i).getUidUser().equals(user.getUid())){
+                            if(s == spinner && likeProductKey.equals(keyProduct) && likes.get(i).getUidUser().equals(user.getUid())){
                                 imgLove.setImageResource(R.drawable.tym1);
                                 userLikeRef.child(likes.get(i).getKey()).removeValue();
                             }
@@ -293,6 +298,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ((LinearLayout) findViewById(R.id.ll_parent)).addView(tView.getView());
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        retrieveCosmetics();
+        retrieveUserLikes();
+        retrieveComment();
+        retrieveReviews();
+    }
+
     private void retrieveUserLikes(){
         userLikeRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -308,9 +323,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 for(int i=0; i<likes.size(); i++){
 
                     int s = Integer.parseInt(likes.get(i).getSpinner());
-                    int p = Integer.parseInt(likes.get(i).getPosition());
+                    String likeProductKey = likes.get(i).getKeyProduct();
 
-                    if(s == spinner && p == position && likes.get(i).getUidUser().equals(user.getUid())){
+                    if(s == spinner && likeProductKey.equals(keyProduct) && likes.get(i).getUidUser().equals(user.getUid())){
                         imgLove.setImageResource(R.drawable.tym2);
                         isLove = false;
 
@@ -325,11 +340,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 for(int i=0; i<likes.size(); i++){
 
                     int s = Integer.parseInt(likes.get(i).getSpinner());
-                    int p = Integer.parseInt(likes.get(i).getPosition());
+                    String likeProductKey = likes.get(i).getKeyProduct();
 
-                    if(s == spinner && p == position){
+                    if(s == spinner && likeProductKey.equals(keyProduct)){
                         sizeLike++;
-                        Log.e("KMFT", sizeLike + "=");
                     }
                 }
 
@@ -343,13 +357,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 for(int i=0; i<likes.size(); i++){
 
                     int s = Integer.parseInt(likes.get(i).getSpinner());
-                    int p = Integer.parseInt(likes.get(i).getPosition());
+                    String likeProductKey = likes.get(i).getKeyProduct();
 
-                    if(s == spinner && p == positionRelatedOne){
+                    if(s == spinner && likeProductKey.equals(keyRelatedOne)){
                         sizeLikeRelatedOne++;
-                    }else if(s == spinner && p == positionRelatedTwo){
+                    }else if(s == spinner && likeProductKey.equals(keyRelatedTwo)){
                         sizeLikeRelatedTwo++;
-                    }else if(s == spinner && p == positionRelatedThree){
+                    }else if(s == spinner && likeProductKey.equals(keyRelatedThree)){
                         sizeLikeRelatedThree++;
                     }
                 }
@@ -387,14 +401,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     comments.add(comment);
                 }
 
-                //on take comments by spinner and position
+                //on take comments by spinner and keyProduct
                 arrComments.clear();
                 for(int i=0; i<comments.size(); i++){
 
                     int s = Integer.parseInt(comments.get(i).getSpinner());
-                    int p = Integer.parseInt(comments.get(i).getPosition());
+                    String commentProductKey = comments.get(i).getKeyProduct();
 
-                    if(s == spinner && p == position){
+                    if(s == spinner && commentProductKey.equals(keyProduct)){
                         arrComments.add(comments.get(i));
                     }
                 }
@@ -408,7 +422,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     int positionRandom = rand.nextInt(arrComments.size());
 
                     //set user comment
-                    if(!arrComments.get(positionRandom).getImageUser().equals("")){
+                    if(!arrComments.get(positionRandom).getImageUser().equals("") &&
+                            arrComments.get(positionRandom).getImageUser() != null){
                         Glide.with(ProductDetailsActivity.this)
                                 .load(arrComments.get(positionRandom).getImageUser())
                                 .into(imgUserComment);
@@ -454,9 +469,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 for(int i=0; i<reviews.size(); i++){
                     int s = Integer.parseInt(reviews.get(i).getSpinner());
-                    int p = Integer.parseInt(reviews.get(i).getPosition());
+                    String reviewProductKey = reviews.get(i).getKeyProduct();
 
-                    if(s == spinner && p == position && reviews.get(i).getUidUser().equals(user.getUid())){
+                    if(s == spinner && reviewProductKey.equals(keyProduct) && reviews.get(i).getUidUser().equals(user.getUid())){
                         ratingBar.setRating(Float.parseFloat(reviews.get(i).getReviewUser()));
                         positionStar = i;
                         return;
@@ -465,6 +480,27 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 ratingBar.setRating(0);
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void retrieveCosmetics(){
+        cosmeticRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                arrayProducts.clear();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Product product = snapshot.getValue(Product.class);
+                    product.setKey(snapshot.getKey());
+                    arrayProducts.add(product);
+                }
             }
 
             @Override

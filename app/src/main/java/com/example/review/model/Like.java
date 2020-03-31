@@ -3,22 +3,22 @@ package com.example.review.model;
 public class Like {
     private String key;
     private String spinner;
-    private String position;
+    private String keyProduct;
     private String uidUser;
 
     public Like() {
     }
 
-    public Like(String spinner, String position, String uidUser) {
+    public Like(String spinner, String keyProduct, String uidUser) {
         this.spinner = spinner;
-        this.position = position;
+        this.keyProduct = keyProduct;
         this.uidUser = uidUser;
     }
 
-    public Like(String key, String isLike, String spinner, String position, String uidUser) {
+    public Like(String key, String spinner, String keyProduct, String uidUser) {
         this.key = key;
         this.spinner = spinner;
-        this.position = position;
+        this.keyProduct = keyProduct;
         this.uidUser = uidUser;
     }
 
@@ -38,12 +38,12 @@ public class Like {
         this.spinner = spinner;
     }
 
-    public String getPosition() {
-        return position;
+    public String getKeyProduct() {
+        return keyProduct;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setKeyProduct(String keyProduct) {
+        this.keyProduct = keyProduct;
     }
 
     public String getUidUser() {

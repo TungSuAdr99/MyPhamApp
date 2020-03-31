@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,13 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
         super.onViewCreated(view, savedInstanceState);
         Product_gv_DSSanphamchon = view.findViewById(R.id.Product_gv_DSSanphamchon);
 
-
         GirdViewSP(view);
         SpinnerSP(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         setSpinner();
     }
 
@@ -75,7 +80,7 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                //arrSpinner.clear();
+                arrSpinner.clear();
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     MySpinner spinner = snapshot.getValue(MySpinner.class);
@@ -87,9 +92,8 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
                 ArrayAdapter<String> adapter =
                         new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, spinnerArr);//Trung gian để đưa data lên view
                 adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);//tạo ra nút để tích
-                adapter.notifyDataSetChanged();
                 Product_spn_DSSanpham.setAdapter(adapter);//lấy data lên cho sp1
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -175,6 +179,7 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
         intent.putExtra("detail", products.get(position).getDetail());
         intent.putExtra("spinner", positionSpinner);
         intent.putExtra("position", position);
+        intent.putExtra("keyProduct", products.get(position).getKey());
         intent.putExtra("promotional", products.get(position).getPromotional());
 
         //related product
@@ -204,9 +209,9 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
         intent.putExtra("imageRelatedThree", products.get(positionRelatedThree).getImage());
         intent.putExtra("nameRelatedThree", products.get(positionRelatedThree).getName());
 
-        intent.putExtra("positionRelatedOne", positionRelatedOne);
-        intent.putExtra("positionRelatedTwo", positionRelatedTwo);
-        intent.putExtra("positionRelatedThree", positionRelatedThree);
+        intent.putExtra("keyRelatedOne", products.get(positionRelatedOne).getKey());
+        intent.putExtra("keyRelatedTwo", products.get(positionRelatedTwo).getKey());
+        intent.putExtra("keyRelatedThree", products.get(positionRelatedThree).getKey());
 
         startActivity(intent);
     }

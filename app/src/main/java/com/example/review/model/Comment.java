@@ -7,20 +7,20 @@ public class Comment {
     private String imageUser;
     private String nameUser;
     private String uidUser;
-    private String position;
+    private String keyProduct;
     private String spinner;
 
     public Comment() {
     }
 
-    public Comment(String key, String imageComment, String comment, String imageUser, String nameUser, String uidUser, String position, String spinner) {
+    public Comment(String key, String imageComment, String comment, String imageUser, String nameUser, String uidUser, String keyProduct, String spinner) {
         this.key = key;
         this.imageComment = imageComment;
         this.comment = comment;
         this.imageUser = imageUser;
         this.nameUser = nameUser;
         this.uidUser = uidUser;
-        this.position = position;
+        this.keyProduct = keyProduct;
         this.spinner = spinner;
     }
 
@@ -72,12 +72,12 @@ public class Comment {
         this.uidUser = uidUser;
     }
 
-    public String getPosition() {
-        return position;
+    public String getKeyProduct() {
+        return keyProduct;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setKeyProduct(String keyProduct) {
+        this.keyProduct = keyProduct;
     }
 
     public String getSpinner() {

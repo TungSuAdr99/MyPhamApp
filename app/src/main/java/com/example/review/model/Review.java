@@ -5,16 +5,16 @@ public class Review {
     private String uidUser;
     private String reviewUser;
     private String spinner;
-    private String position;
+    private String keyProduct;
 
     public Review() {
     }
 
-    public Review(String uidUser, String reviewUser, String spinner, String position) {
+    public Review(String uidUser, String reviewUser, String spinner, String keyProduct) {
         this.uidUser = uidUser;
         this.reviewUser = reviewUser;
         this.spinner = spinner;
-        this.position = position;
+        this.keyProduct = keyProduct;
     }
 
     public String getKey() {
@@ -49,11 +49,11 @@ public class Review {
         this.spinner = spinner;
     }
 
-    public String getPosition() {
-        return position;
+    public String getKeyProduct() {
+        return keyProduct;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setKeyProduct(String keyProduct) {
+        this.keyProduct = keyProduct;
     }
 }

@@ -80,6 +80,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Product product = snapshot.getValue(Product.class);
+                    product.setKey(snapshot.getKey());
                     arrayProducts.add(product);
                 }
             }
@@ -117,11 +118,13 @@ public class SearchActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final FindCosmeticsViewHolder holder, final int position, @NonNull final Product model) {
                 holder.txtNameProduct.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(holder.img_product);
-                Log.e("KMFFG", position + "");
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        String keyProduct = getRef(position).getKey();
+
                         Intent intent = new Intent(SearchActivity.this, ProductDetailsActivity.class);
                         intent.putExtra("name", model.getName());
                         intent.putExtra("image", model.getImage());
@@ -130,7 +133,39 @@ public class SearchActivity extends AppCompatActivity {
                         intent.putExtra("detail", model.getDetail());
                         intent.putExtra("promotional", model.getPromotional());
                         intent.putExtra("spinner", model.getSpinner());
-                        intent.putExtra("position", position);
+                        intent.putExtra("keyProduct", keyProduct);
+
+                        //related product
+                        Random rand = new Random();
+                        int positionRelatedOne = rand.nextInt(arrayProducts.size());
+                        int positionRelatedTwo = rand.nextInt(arrayProducts.size());
+                        int positionRelatedThree = rand.nextInt(arrayProducts.size());
+
+                        while (positionRelatedOne == positionRelatedTwo){
+                            positionRelatedOne = rand.nextInt(arrayProducts.size());
+                        }
+
+                        while (positionRelatedOne == positionRelatedThree){
+                            positionRelatedOne = rand.nextInt(arrayProducts.size());
+                        }
+
+                        while (positionRelatedTwo == positionRelatedThree){
+                            positionRelatedTwo = rand.nextInt(arrayProducts.size());
+                        }
+
+                        intent.putExtra("imageRelatedOne", arrayProducts.get(positionRelatedOne).getImage());
+                        intent.putExtra("nameRelatedOne", arrayProducts.get(positionRelatedOne).getName());
+
+                        intent.putExtra("imageRelatedTwo", arrayProducts.get(positionRelatedTwo).getImage());
+                        intent.putExtra("nameRelatedTwo", arrayProducts.get(positionRelatedTwo).getName());
+
+                        intent.putExtra("imageRelatedThree", arrayProducts.get(positionRelatedThree).getImage());
+                        intent.putExtra("nameRelatedThree", arrayProducts.get(positionRelatedThree).getName());
+
+                        intent.putExtra("keyRelatedOne", arrayProducts.get(positionRelatedOne).getKey());
+                        intent.putExtra("keyRelatedTwo", arrayProducts.get(positionRelatedTwo).getKey());
+                        intent.putExtra("keyRelatedThree", arrayProducts.get(positionRelatedThree).getKey());
+
                         startActivity(intent);
                     }
                 });
@@ -147,50 +182,6 @@ public class SearchActivity extends AppCompatActivity {
 
         rvProduct.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
-    }
-
-    private void startIntent(int position){
-        Intent intent = new Intent(SearchActivity.this, ProductDetailsActivity.class);
-        intent.putExtra("name", arrayProducts.get(position).getName());
-        intent.putExtra("image", arrayProducts.get(position).getImage());
-        intent.putExtra("price", arrayProducts.get(position).getPrice());
-        intent.putExtra("ingredient", arrayProducts.get(position).getIngredient());
-        intent.putExtra("detail", arrayProducts.get(position).getDetail());
-        //intent.putExtra("spinner", positionSpinner);
-        intent.putExtra("position", position);
-
-        /*//related product
-        Random rand = new Random();
-        int positionRelatedOne = rand.nextInt(products.size());
-        int positionRelatedTwo = rand.nextInt(products.size());
-        int positionRelatedThree = rand.nextInt(products.size());
-
-        while (positionRelatedOne == positionRelatedTwo){
-            positionRelatedOne = rand.nextInt(products.size());
-        }
-
-        while (positionRelatedOne == positionRelatedThree){
-            positionRelatedOne = rand.nextInt(products.size());
-        }
-
-        while (positionRelatedTwo == positionRelatedThree){
-            positionRelatedTwo = rand.nextInt(products.size());
-        }
-
-        intent.putExtra("imageRelatedOne", products.get(positionRelatedOne).getImage());
-        intent.putExtra("nameRelatedOne", products.get(positionRelatedOne).getName());
-
-        intent.putExtra("imageRelatedTwo", products.get(positionRelatedTwo).getImage());
-        intent.putExtra("nameRelatedTwo", products.get(positionRelatedTwo).getName());
-
-        intent.putExtra("imageRelatedThree", products.get(positionRelatedThree).getImage());
-        intent.putExtra("nameRelatedThree", products.get(positionRelatedThree).getName());
-
-        intent.putExtra("positionRelatedOne", positionRelatedOne);
-        intent.putExtra("positionRelatedTwo", positionRelatedTwo);
-        intent.putExtra("positionRelatedThree", positionRelatedThree);*/
-
-        startActivity(intent);
     }
 
     private class FindCosmeticsViewHolder extends RecyclerView.ViewHolder{
