@@ -7,11 +7,6 @@
         android:title=""/>
 
     <item
-        android:id="@+id/nav_address"
-        android:icon="@drawable/ic_address"
-        android:title=""/>
-
-    <item
         android:id="@+id/nav_product"
         android:icon="@drawable/ic_product"
         android:title=""/>

@@ -55,6 +55,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private CircleImageView imgUserComment;
     private TextView txtUserComment;
     private TextView txtUserName;
+    private TextView tv_location;
 
     ArrayList<RelatedProduct> arrayList;
     RelatedProductAdapter customAdapter;
@@ -156,6 +157,21 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     Toast.makeText(ProductDetailsActivity.this, "cảm ơn b đã đánh giá sản phẩm này", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        switchScreenLocation();
+    }
+
+    private void switchScreenLocation()
+    {
+        tv_location = findViewById(R.id.tv_location);
+        tv_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProductDetailsActivity.this, "aaa", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProductDetailsActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
     }
