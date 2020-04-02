@@ -96,8 +96,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Log.e("KMFL", "====");
-
         FirebaseRecyclerOptions<Product> options;
 
         if(strSearch.equals("")){

@@ -63,14 +63,10 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
         super.onViewCreated(view, savedInstanceState);
         Product_gv_DSSanphamchon = view.findViewById(R.id.Product_gv_DSSanphamchon);
 
+        setSpinner();
+
         GirdViewSP(view);
         SpinnerSP(view);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        setSpinner();
     }
 
     private void setSpinner(){
@@ -93,7 +89,6 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
                         new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, spinnerArr);//Trung gian để đưa data lên view
                 adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);//tạo ra nút để tích
                 Product_spn_DSSanpham.setAdapter(adapter);//lấy data lên cho sp1
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -181,6 +176,7 @@ public class ProductFragment extends Fragment implements ProductFullAdapter.onCl
         intent.putExtra("position", position);
         intent.putExtra("keyProduct", products.get(position).getKey());
         intent.putExtra("promotional", products.get(position).getPromotional());
+        intent.putExtra("keyShop", products.get(position).getKeyShop());
 
         //related product
         Random rand = new Random();

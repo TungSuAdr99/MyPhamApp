@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.review.MainActivity;
+import com.example.review.model.Map;
 import com.example.review.model.Product;
 import com.example.review.model.RelatedProduct;
 import com.example.review.adapter.RelatedProductAdapter;
@@ -26,6 +28,7 @@ import com.example.review.R;
 import com.example.review.model.Comment;
 import com.example.review.model.Like;
 import com.example.review.model.Review;
+import com.example.review.model.Shop;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private TextView txtReview;
     private DatabaseReference userReviewsRef;
+    private TextView txtInformationShop;
 
     private CircleImageView imgUserComment;
     private TextView txtUserComment;
@@ -80,6 +84,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private String nameRelatedTwo;
     private String imageRelatedThree;
     private String nameRelatedThree;
+    private String keyShop;
+    private String informationShop;
 
     //key product
     private String keyRelatedOne;
@@ -97,24 +103,27 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference userLikeRef;
     private DatabaseReference cosmeticRef;
+    private DatabaseReference mapsRef;
 
     private ArrayList<Like> likes = new ArrayList<>();
     private ArrayList<Comment> comments = new ArrayList<>();
     private ArrayList<Review> reviews = new ArrayList<>();
     private ArrayList<Product> arrayProducts = new ArrayList<>();
 
+    private Map map;
+    private double coordinateX;
+    private double coordinateY;
+    private String location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
+        setDatabaseReference();
+
         initView();
         takeIntent();
-
-        userLikeRef = FirebaseDatabase.getInstance().getReference().child("userLikes");
-        userCommentRef = FirebaseDatabase.getInstance().getReference().child("UserComments");
-        userReviewsRef = FirebaseDatabase.getInstance().getReference().child("UserReviews");
-        cosmeticRef = FirebaseDatabase.getInstance().getReference().child("MyPham");
 
         TreeView();
 
@@ -125,8 +134,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         txtName.setText("Tên: " + name);
         txtPrice.setText("Giá: " + price);
         txtIngredient.setText("Thành phần: " + ingredient);
-        Glide.with(this).load(image).into(imageView);
+        if(!image.equals(""))
+            Glide.with(this).load(image).into(imageView);
         txtPromotional.setText("Khuyến mãi: " + promotional);
+
 
         llShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,14 +174,36 @@ public class ProductDetailsActivity extends AppCompatActivity {
         switchScreenLocation();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        retrieveShops();
+        retrieveCosmetics();
+        retrieveUserLikes();
+        retrieveComment();
+        retrieveReviews();
+        retrieveMaps();
+    }
+
+    private void setDatabaseReference(){
+        userLikeRef = FirebaseDatabase.getInstance().getReference().child("userLikes");
+        userCommentRef = FirebaseDatabase.getInstance().getReference().child("UserComments");
+        userReviewsRef = FirebaseDatabase.getInstance().getReference().child("UserReviews");
+        cosmeticRef = FirebaseDatabase.getInstance().getReference().child("MyPham");
+        mapsRef = FirebaseDatabase.getInstance().getReference().child("Maps");
+    }
+
     private void switchScreenLocation()
     {
         tv_location = findViewById(R.id.tv_location);
         tv_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProductDetailsActivity.this, "aaa", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ProductDetailsActivity.this, MapsActivity.class);
+                intent.putExtra("coordinateX", coordinateX);
+                intent.putExtra("coordinateY", coordinateY);
+                intent.putExtra("location", location);
                 startActivity(intent);
             }
         });
@@ -191,6 +224,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.rating_bar);
         txtReview = findViewById(R.id.txt_review);
         txtPromotional = findViewById(R.id.txt_promotional);
+        txtInformationShop = findViewById(R.id.txt_infomation_shop);
     }
 
     private void switchToAtvtCmt()
@@ -239,6 +273,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         spinner = intent.getIntExtra("spinner", 0);
         promotional = intent.getStringExtra("promotional");
         keyProduct = intent.getStringExtra("keyProduct");
+        keyShop = intent.getStringExtra("keyShop");
 
         imageRelatedOne = intent.getStringExtra("imageRelatedOne");
         imageRelatedTwo = intent.getStringExtra("imageRelatedTwo");
@@ -253,8 +288,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         keyRelatedThree = intent.getStringExtra("keyRelatedThree");
     }
 
-    public void XLTextViewThich()
-    {
+    public void XLTextViewThich() {
         linearLayoutLike = findViewById(R.id.ll_like);
         imgLove = findViewById(R.id.img_love);
 
@@ -290,8 +324,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         });
     }
 
-    public void TreeView()
-    {
+    public void TreeView() {
         //Root
         TreeNode root = TreeNode.root();
 
@@ -312,16 +345,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         //Add AndroidTreeView into view.
         AndroidTreeView tView = new AndroidTreeView(getApplicationContext(), root);
         ((LinearLayout) findViewById(R.id.ll_parent)).addView(tView.getView());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        retrieveCosmetics();
-        retrieveUserLikes();
-        retrieveComment();
-        retrieveReviews();
     }
 
     private void retrieveUserLikes(){
@@ -525,4 +548,59 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void retrieveMaps(){
+        mapsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    map = snapshot.getValue(Map.class);
+                    map.setKey(snapshot.getKey());
+
+                    if(map.getKeyShop().equals(keyShop)){
+                        coordinateX = Double.parseDouble(map.getCoordinateX());
+                        coordinateY = Double.parseDouble(map.getCoordinateY());
+                        location = map.getLocation();
+
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void retrieveShops(){
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance()
+                .getReference().child("Shop");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Shop shop = snapshot.getValue(Shop.class);
+                    shop.setKey(snapshot.getKey());
+
+                    if(shop.getKey().equals(keyShop)){
+                        informationShop = shop.getInformation();
+                        txtInformationShop.setText("Shop: " + informationShop);
+                        return;
+                    }
+                }
+
+                setAdapter();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

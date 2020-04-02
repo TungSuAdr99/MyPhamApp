@@ -226,24 +226,7 @@ public class UserFragment extends Fragment {
             final HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
             profileMap.put("name", nameUser);
-
-            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-
-                                String imageDb = dataSnapshot.child("image").getValue().toString();
-                                if(imageDb == null)
-                                    profileMap.put("image", downloadUrl);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+            profileMap.put("image", downloadUrl);
 
             userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(profileMap);
         }else {
